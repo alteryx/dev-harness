@@ -1,0 +1,7 @@
+{
+  "out": "docs",
+  "tsconfig": "./tsconfig.json",
+  "exclude": "**/node_modules/*",
+  "incude": "src/*.tsx?",
+  "mode": "modules"
+}

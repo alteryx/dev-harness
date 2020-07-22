@@ -1,0 +1,46 @@
+{
+  "name": "custom-tool-poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ayx-scripts start",
+    "build": "ayx-scripts build",
+    "init": "env IS_JS=true ayx-scripts init",
+    "test": "jest",
+    "apidocs": "ayx-scripts doc",
+    "docs": "styleguidist server",
+    "docs:build": "styleguidist build",
+    "analyze": "ayx-scripts analyze-bundle",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ayx/ayx-scripts": "^2.0.3",
+    "@ayx/icons": "^3.4.1",
+    "@ayx/ui-core": "^4.5.1",
+    "@ayx/ui-core-lab": "^4.3.3",
+    "jss": "^10.3.0",
+    "react-frame-component": "^4.1.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "babel-jest": "^26.1.0",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "core-js": "^3.6.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-react-intl": "^2.0.6",
+    "enzyme-to-json": "^3.5.0",
+    "eslint-config-ayx-ui": "^2.0.8",
+    "eslint-config-ayx-ui-base": "^2.0.20",
+    "jest": "^26.1.0",
+    "jest-cli": "^26.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-intl": "^4.7.6",
+    "transform-imports": "^2.1.1"
+  }
+}
