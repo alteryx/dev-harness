@@ -1,6 +1,8 @@
 import React from 'react';
 import { AyxAppWrapper } from '@ayx/ui-core';
 
+import UiSdkContext from '../Context';
+
 class Provider extends React.Component {
   constructor(props) {
     super(props);
@@ -9,10 +11,15 @@ class Provider extends React.Component {
     };
   }
 
+  updateContext = context => {
+    this.setState({
+      ...context
+    });
+  };
+
   componentDidMount() {
     const { contentWindow } = this.props;
 
-    console.log(contentWindow);
     contentWindow.addEventListener('message', ({ data }) => {
       this.setState({
         ...data
@@ -23,7 +30,9 @@ class Provider extends React.Component {
   render() {
     return (
       <AyxAppWrapper>
-        {this.state.data && this.state.data.meta ? <h1> {this.state.data.meta} </h1> : null}
+        <UiSdkContext.Provider updateContext={this.updateContext} value={this.state}>
+          {this.props.children}
+        </UiSdkContext.Provider>
       </AyxAppWrapper>
     );
   }
