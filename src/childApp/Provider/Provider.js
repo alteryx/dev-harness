@@ -1,7 +1,7 @@
 import React from 'react';
 import { AyxAppWrapper } from '@ayx/ui-core';
 
-import UiSdkContext from '../Context';
+import UiSdkContext from '../../Context';
 
 class Provider extends React.Component {
   constructor(props) {

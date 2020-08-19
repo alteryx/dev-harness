@@ -40,7 +40,7 @@ class Adapter extends Component<any, any> {
   contentWindow: any;
 
   handleRef = ref => {
-    this.contentWindow = ref ? ref.node.contentWindow : null;
+    this.contentWindow = ref ? ref.contentWindow : null;
   };
 
   receiveMessageEnvelope = ({ data }) => {
@@ -111,8 +111,8 @@ class Adapter extends Component<any, any> {
           </Grid>
           <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
           <Container maxWidth="xl">
-            <Frame
-              initialContent={this.state.initialContent}
+            <iframe
+              src="http://localhost:3000/childApp.html"
               ref={this.handleRef}
               style={{ border: 0, height: '100%', width: '100%' }}
             />

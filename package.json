@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ayx-scripts start",
+    "start": "ayx-scripts start webpack.custom.js",
     "build": "ayx-scripts build",
     "init": "env IS_JS=true ayx-scripts init",
     "test": "jest",
