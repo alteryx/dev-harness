@@ -3,8 +3,19 @@ import MessageApi from '../MessageApiBase/MessageApiBase';
 interface IMessage {
   data: {
     type: string;
-    payload: object;
+    payload: {
+      model?: object;
+      darkMode?: boolean;
+      locale?: string;
+      productTheme?: object;
+    };
   };
+}
+
+interface IAyxAppContext {
+  darkMode?: boolean;
+  productTheme?: object;
+  locale?: string;
 }
 
 let initRes: any;
@@ -13,15 +24,15 @@ const initialized = new Promise(res => {
   initRes = res;
 });
 
-class DevHarnessMessageApi extends MessageApi<object, object, object> {
+class DevHarnessMessageApi extends MessageApi<object, object, IAyxAppContext> {
   constructor() {
     super(window);
     window.addEventListener('message', this.receiveMessage);
     this.init();
   }
 
-  sendMessage = (type: string, payload: object): void => {
-    window.parent.postMessage({ type, payload }, window.parent.origin);
+  sendMessage = (type: string, data: object): void => {
+    window.parent.postMessage({ type, payload: { ...data } }, window.parent.origin);
   };
 
   receiveMessage = (message: IMessage): void => {
@@ -33,8 +44,7 @@ class DevHarnessMessageApi extends MessageApi<object, object, object> {
   init = (): void => {
     this.sendMessage('INIT', null);
     window.addEventListener('message', (message: IMessage) => {
-      if (message.data.type === 'HANDSHAKE_RECEIVED') {
-        this.ayxAppContext = message.data.payload;
+      if (message.data.type === 'HANDSHAKE_RECEIVED') { 
         initRes();
       }
     });

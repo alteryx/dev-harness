@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Autocomplete } from '@ayx/ui-core-lab';
-import { TextField, Container, Grid, FormControlLabel, Switch, AyxAppWrapper } from '@ayx/ui-core';
+import { TextField, Grid, FormControlLabel, Switch, AyxAppWrapper } from '@ayx/ui-core';
 import { withStyles } from '@ayx/ui-core/styles';
-import Frame from 'react-frame-component';
-
-import { getTemplate } from '../PageBuilder/PageBuilder';
 
 const actionTypes = ['UPDATE_PALETTE_TYPE', 'UPDATE_THEME', 'UPDATE_LOCALE', 'UPDATE_MODEL'];
 
@@ -48,19 +45,25 @@ class Adapter extends Component<any, any> {
       this.setState({
         ...data.payload
       });
+    } else if (data.type === 'INIT') {
+      this.contentWindow.postMessage({ type: 'HANDSHAKE_RECEIVED' })
+      this.sendUpdates();
     }
   };
 
+  sendUpdates = () => {
+    const { model, darkMode, locale } = this.state
+    this.contentWindow.postMessage({ type: 'UPDATE_MODEL', payload: { ...model }}, '*');
+    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale, productTheme }}, '*');
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
-      this.contentWindow.postMessage({ type: 'UPDATE_DATA_ENVELOPE', payload: { ...this.state } });
+      this.sendUpdates();
     }
   }
 
   componentDidMount() {
-    this.setState({
-      initialContent: getTemplate({ productTheme, model: { count: 0 } })
-    });
     // multiple instances of this adapter running
     // will need toolId and pluginType to make a unique ID
     window.addEventListener('message', this.receiveMessageEnvelope);
@@ -110,13 +113,13 @@ class Adapter extends Component<any, any> {
             </Grid>
           </Grid>
           <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
-          <Container maxWidth="xl">
+          <Grid item style={{ width: '100%' }}>
             <iframe
               src="http://localhost:3000/childApp.html"
               ref={this.handleRef}
               style={{ border: 0, height: '100%', width: '100%' }}
             />
-          </Container>
+          </Grid>
         </Grid>
       </AyxAppWrapper>
     );
