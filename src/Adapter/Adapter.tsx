@@ -46,16 +46,16 @@ class Adapter extends Component<any, any> {
         ...data.payload
       });
     } else if (data.type === 'INIT') {
-      this.contentWindow.postMessage({ type: 'HANDSHAKE_RECEIVED' })
+      this.contentWindow.postMessage({ type: 'HANDSHAKE_RECEIVED' });
       this.sendUpdates();
     }
   };
 
   sendUpdates = () => {
-    const { model, darkMode, locale } = this.state
-    this.contentWindow.postMessage({ type: 'UPDATE_MODEL', payload: { ...model }}, '*');
-    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale, productTheme }}, '*');
-  }
+    const { model, darkMode, locale } = this.state;
+    this.contentWindow.postMessage({ type: 'UPDATE_MODEL', payload: { ...model } }, '*');
+    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale, productTheme } }, '*');
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
@@ -91,33 +91,34 @@ class Adapter extends Component<any, any> {
     return (
       <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'} theme={productTheme}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
-          <Grid alignItems="center" container direction="column">
-            <Grid item>
-              <FormControlLabel control={<Switch onChange={() => this.setDarkMode(!darkMode)} />} label="Dark Mode" />
-            </Grid>
-          </Grid>
-          <Grid alignItems="center" container direction="column">
-            <Grid item>
-              <h1>This is my count {model.count}</h1>
-            </Grid>
-          </Grid>
-          <Grid alignItems="center" container direction="column">
-            <Grid item>
+          <Grid container direction="column">
+            <Grid item xs={6}>
               <Autocomplete
                 disableClearable
                 onChange={(e, value) => this.setLocale(value)}
                 options={['en', 'fr', 'de', 'es', 'pt', 'ja', 'zh']}
-                renderInput={params => <TextField {...params} fullWidth />}
+                renderInput={(params) => <TextField {...params} fullWidth />}
                 value={locale}
               />
+            </Grid>
+          </Grid>
+          <Grid container direction="column">
+            <Grid item xs={6}>
+              <h1>This is my count {model.count}</h1>
+            </Grid>
+          </Grid>
+          <Grid container direction="column">
+            <Grid item xs={6}>
+              <FormControlLabel control={<Switch onChange={() => this.setDarkMode(!darkMode)} />} label="Dark Mode" />
             </Grid>
           </Grid>
           <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
           <Grid item style={{ width: '100%' }}>
             <iframe
-              src="http://localhost:3000/childApp.html"
               ref={this.handleRef}
+              src="http://localhost:3000/childApp.html"
               style={{ border: 0, height: '100%', width: '100%' }}
+              title="child-app"
             />
           </Grid>
         </Grid>

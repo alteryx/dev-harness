@@ -44,7 +44,7 @@ class DevHarnessMessageApi extends MessageApi<object, object, IAyxAppContext> {
   init = (): void => {
     this.sendMessage('INIT', null);
     window.addEventListener('message', (message: IMessage) => {
-      if (message.data.type === 'HANDSHAKE_RECEIVED') { 
+      if (message.data.type === 'HANDSHAKE_RECEIVED') {
         initRes();
       }
     });

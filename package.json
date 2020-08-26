@@ -17,10 +17,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ayx/ayx-scripts": "^2.0.3",
+    "@ayx/ayx-scripts": "^3.1.0",
     "@ayx/icons": "^3.4.1",
     "@ayx/ui-core": "^4.5.1",
     "@ayx/ui-core-lab": "^4.3.3",
+    "html-webpack-plugin": "^4.3.0",
     "jss": "^10.3.0",
     "react-frame-component": "^4.1.2"
   },
