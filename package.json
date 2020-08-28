@@ -6,7 +6,9 @@
   "scripts": {
     "start": "ayx-scripts start webpack.custom.js",
     "build": "ayx-scripts build",
-    "init": "env IS_JS=true ayx-scripts init",
+    "copy:designer": "node copyDesigner.js",
+    "build:designer": "npm run build && npm run copy:designer",
+    "init": "ayx-scripts init",
     "test": "jest",
     "apidocs": "ayx-scripts doc",
     "docs": "styleguidist server",
