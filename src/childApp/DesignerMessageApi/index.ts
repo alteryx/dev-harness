@@ -56,21 +56,24 @@ class DesignerMessageApi extends MessageApiBase<object, object, object> {
       productTheme: {},
       locale: this.context.AlteryxLanguageCode,
     };
-    this.context.Gui.SetConfiguration = (currentToolConfiguration) => {
-      if (this.subscriptions.has('MODEL_UPDATED')) {
-        this.subscriptions.get('MODEL_UPDATED')(currentToolConfiguration);
-      }
-    };
-    this.context.Gui.GetConfiguration = () => {
-      const payload = {
-        Configuration: {
+    this.context.Gui = {
+      SetConfiguration(currentToolConfiguration) {
+        if (this.subscriptions.has('MODEL_UPDATED')) {
+          this.subscriptions.get('MODEL_UPDATED')(currentToolConfiguration);
+        }
+        window.Alteryx.JsEvent(JSON.stringify({ Event: 'SetConfiguration' }));
+      },
+      GetConfiguration() {
+        const payload = {
           Configuration: {
-            ...this._model.configuration,
+            Configuration: {
+              ...this._model.configuration,
+            },
+            Annotation: this._model.annotation,
           },
-          Annotation: this._model.annotation,
-        },
-      };
-      this.sendMessage(messageTypes.GET_CONFIGURATION, payload);
+        };
+        this.sendMessage(messageTypes.GET_CONFIGURATION, payload);
+      }
     };
   }
 
