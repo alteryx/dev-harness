@@ -61,7 +61,7 @@ class DesignerMessageApi extends MessageApiBase<object, object, object> {
         if (this.subscriptions.has('MODEL_UPDATED')) {
           this.subscriptions.get('MODEL_UPDATED')(currentToolConfiguration);
         }
-        window.Alteryx.JsEvent(JSON.stringify({ Event: 'SetConfiguration' }));
+        this.context.JsEvent(JSON.stringify({ Event: 'SetConfiguration' }));
       },
       GetConfiguration() {
         const payload = {
