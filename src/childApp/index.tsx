@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import Provider from './Provider/Provider';
 import DevHarnessMessageApi from './DevHarnessMessageApi/DevHarnessMessageApi';
+import DesignerMessageApi from './DesignerMessageApi';
 import UiSdkContext from './Context';
 
 const messages = {
@@ -31,7 +32,15 @@ const messages = {
   },
 };
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+  interface Window {
+    Alteryx: any;
+  }
+}
+
 const devHarnessMessageApi = new DevHarnessMessageApi();
+const designerMessageApi = new DesignerMessageApi(window.Alteryx);
 
 const initApp = async () => {
   await devHarnessMessageApi.onReady();
@@ -68,7 +77,7 @@ const SampleDecrementButton = () => {
 };
 
 ReactDOM.render(
-  <Provider messageBroker={devHarnessMessageApi} messages={messages}>
+  <Provider messageBroker={designerMessageApi} messages={messages}>
     <Grid container>
       <Grid item xs={3}>
         <SampleIncrementButton />
