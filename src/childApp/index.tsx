@@ -40,7 +40,6 @@ declare global {
 }
 
 const devHarnessMessageApi = new DevHarnessMessageApi();
-const designerMessageApi = new DesignerMessageApi(window.Alteryx);
 
 const initApp = async () => {
   await devHarnessMessageApi.onReady();
@@ -77,7 +76,7 @@ const SampleDecrementButton = () => {
 };
 
 ReactDOM.render(
-  <Provider messageBroker={designerMessageApi} messages={messages}>
+  <Provider messageBroker={devHarnessMessageApi} messages={messages}>
     <Grid container>
       <Grid item xs={3}>
         <SampleIncrementButton />
