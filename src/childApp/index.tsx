@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import Provider from './Provider/Provider';
 import DevHarnessMessageApi from './DevHarnessMessageApi/DevHarnessMessageApi';
+import DesignerMessageApi from './DesignerMessageApi';
 import UiSdkContext from './Context';
 
 const messages = {
@@ -30,6 +31,13 @@ const messages = {
     'example.label': '超棒的弦',
   },
 };
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+  interface Window {
+    Alteryx: any;
+  }
+}
 
 const devHarnessMessageApi = new DevHarnessMessageApi();
 

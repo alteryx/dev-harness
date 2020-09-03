@@ -5,29 +5,32 @@ import { AyxAppWrapper } from '@ayx/ui-core';
 
 import UiSdkContext, { IContextProviderProps } from '../Context';
 import DevHarnessMessageApi from '../DevHarnessMessageApi/DevHarnessMessageApi';
+import DesignerMessageApi from '../DesignerMessageApi';
+
+let messageApi: DevHarnessMessageApi | DesignerMessageApi;
 
 interface IProviderProps {
   messages: object;
-  messageBroker: DevHarnessMessageApi;
+  messageBroker: typeof messageApi;
   children: React.ReactNode[];
 }
 
-const Provider: React.FC<IProviderProps> = (props) => {
+const Provider: React.FC<IProviderProps> = props => {
   const { messages = {}, messageBroker } = props;
   const [model, updateModel] = useState(messageBroker.model);
   const [appContext, updateAppContext] = useState(messageBroker.ayxAppContext);
 
-  const handleUpdateModel = newModel => {
+  const handleUpdateModel = (newModel) => {
     updateModel(newModel);
     messageBroker.model = newModel;
     messageBroker.sendMessage('UPDATE_MODEL', newModel);
   };
 
   useEffect(() => {
-    const receiveAppContext = data => {
+    const receiveAppContext = (data) => {
       updateAppContext({ ...data });
     };
-    const receiveModel = data => {
+    const receiveModel = (data) => {
       updateModel({ ...data });
     };
 
@@ -40,7 +43,7 @@ const Provider: React.FC<IProviderProps> = (props) => {
 
   const providerProps: IContextProviderProps = {
     id: 'sdk-provider',
-    value: [model, handleUpdateModel]
+    value: [model, handleUpdateModel],
   };
 
   const { darkMode = false, locale = 'en', productTheme = {} } = appContext || {};
