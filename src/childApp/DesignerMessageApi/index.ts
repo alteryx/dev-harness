@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import MessageApiBase from '../MessageApiBase/MessageApiBase';
 import * as callback from '../Utils/callback';
 
@@ -9,12 +10,12 @@ export interface IAyxAppContext {
 
 export interface IContext {
   Gui: {
-    SetConfiguration: Function;
-    GetConfiguration: Function;
-    Callbacks: object;
+    SetConfiguration?: Function;
+    GetConfiguration?: Function;
+    Callbacks?: object;
   };
-  AlteryxLanguageCode: string;
-  JsEvent: Function;
+  AlteryxLanguageCode?: string;
+  JsEvent?: Function;
 }
 
 interface IModel {
