@@ -32,11 +32,11 @@ interface ISubscriptionTypes {
 }
 
 export const messageTypes: IMessageTypes = {
-  GET_CONFIGURATION: 'GetConfiguration',
+  GET_CONFIGURATION: 'GetConfiguration'
 };
 
 export const subscriptionEvents: ISubscriptionTypes = {
-  MODEL_UPDATED: 'MODEL_UPDATED',
+  MODEL_UPDATED: 'MODEL_UPDATED'
 };
 
 class DesignerMessageApi extends MessageApiBase<object, object, IAyxAppContext> {
@@ -50,28 +50,28 @@ class DesignerMessageApi extends MessageApiBase<object, object, IAyxAppContext> 
     super(ctx);
     this._model = {
       configuration: {},
-      annotation: '',
+      annotation: ''
     };
     this._ayxAppContext = {
       darkMode: false,
       productTheme: {},
-      locale: this.context.AlteryxLanguageCode,
+      locale: this.context.AlteryxLanguageCode
     };
     this.context.Gui = {
-      SetConfiguration(currentToolConfiguration) {
-        if (this.subscriptions.has('MODEL_UPDATED')) {
+      SetConfiguration: currentToolConfiguration => {
+        if (this.subscriptions && this.subscriptions.has('MODEL_UPDATED')) {
           this.subscriptions.get('MODEL_UPDATED')(currentToolConfiguration);
         }
         this.context.JsEvent(JSON.stringify({ Event: 'SetConfiguration' }));
       },
-      GetConfiguration() {
+      GetConfiguration: () => {
         const payload = {
           Configuration: {
             Configuration: {
-              ...this._model.configuration,
+              ...this._model.configuration
             },
-            Annotation: this._model.annotation,
-          },
+            Annotation: this._model.annotation
+          }
         };
         this.sendMessage(messageTypes.GET_CONFIGURATION, payload);
       }

@@ -28,8 +28,8 @@ const messages = {
     'example.label': '超素晴らしい文字列',
   },
   zh: {
-    'example.label': '超棒的弦',
-  },
+    'example.label': '超棒的弦'
+  }
 };
 
 declare global {

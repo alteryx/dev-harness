@@ -20,17 +20,17 @@ const Provider: React.FC<IProviderProps> = props => {
   const [model, updateModel] = useState(messageBroker.model);
   const [appContext, updateAppContext] = useState(messageBroker.ayxAppContext);
 
-  const handleUpdateModel = (newModel) => {
+  const handleUpdateModel = newModel => {
     updateModel(newModel);
     messageBroker.model = newModel;
     messageBroker.sendMessage('UPDATE_MODEL', newModel);
   };
 
   useEffect(() => {
-    const receiveAppContext = (data) => {
+    const receiveAppContext = data => {
       updateAppContext({ ...data });
     };
-    const receiveModel = (data) => {
+    const receiveModel = data => {
       updateModel({ ...data });
     };
 
@@ -43,7 +43,7 @@ const Provider: React.FC<IProviderProps> = props => {
 
   const providerProps: IContextProviderProps = {
     id: 'sdk-provider',
-    value: [model, handleUpdateModel],
+    value: [model, handleUpdateModel]
   };
 
   const { darkMode = false, locale = 'en', productTheme = {} } = appContext || {};

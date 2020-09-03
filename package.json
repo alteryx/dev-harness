@@ -23,6 +23,9 @@
     "@ayx/icons": "^3.4.1",
     "@ayx/ui-core": "^4.5.1",
     "@ayx/ui-core-lab": "^4.3.3",
+    "eslint-config-ui-core": "^1.0.16",
+    "eslint-config-ui-core-base": "^1.0.19",
+    "eslint-plugin-ui-core": "0.0.319977-develop",
     "html-webpack-plugin": "^4.3.0",
     "jss": "^10.3.0",
     "react-frame-component": "^4.1.2"
@@ -37,8 +40,6 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-react-intl": "^2.0.6",
     "enzyme-to-json": "^3.5.0",
-    "eslint-config-ayx-ui": "^2.0.8",
-    "eslint-config-ayx-ui-base": "^2.0.20",
     "jest": "^26.1.0",
     "jest-cli": "^26.1.0",
     "react": "^16.13.1",

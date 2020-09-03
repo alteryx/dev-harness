@@ -1,3 +1,4 @@
 module.exports = {
-  extends: "ayx-ui"
+  extends: ['ui-core'],
+  plugins: ['ui-core']
 };
