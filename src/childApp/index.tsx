@@ -5,27 +5,26 @@ import { FormattedMessage } from 'react-intl';
 
 import Provider from './Provider/Provider';
 import DevHarnessMessageApi from './DevHarnessMessageApi/DevHarnessMessageApi';
-import DesignerMessageApi from './DesignerMessageApi';
 import UiSdkContext from './Context';
 
 const messages = {
   en: {
-    'example.label': 'Super awesome string.',
+    'example.label': 'Super awesome string.'
   },
   fr: {
-    'example.label': 'Ficelle super génial.',
+    'example.label': 'Ficelle super génial.'
   },
   de: {
-    'example.label': 'Super tolle Saite.',
+    'example.label': 'Super tolle Saite.'
   },
   es: {
-    'example.label': 'Cadena super impresionante.',
+    'example.label': 'Cadena super impresionante.'
   },
   pt: {
-    'example.label': 'Corda super incrível.',
+    'example.label': 'Corda super incrível.'
   },
   ja: {
-    'example.label': '超素晴らしい文字列',
+    'example.label': '超素晴らしい文字列'
   },
   zh: {
     'example.label': '超棒的弦'
@@ -33,7 +32,7 @@ const messages = {
 };
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   interface Window {
     Alteryx: any;
   }

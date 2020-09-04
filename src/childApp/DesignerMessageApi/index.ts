@@ -74,7 +74,8 @@ class DesignerMessageApi extends MessageApiBase<object, object, IAyxAppContext> 
           }
         };
         this.sendMessage(messageTypes.GET_CONFIGURATION, payload);
-      }
+      },
+      Callbacks: {}
     };
   }
 
