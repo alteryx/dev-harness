@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Grid, Typography } from '@ayx/ui-core';
+import { AyxAppWrapper, Button, Grid, Typography } from '@ayx/ui-core';
 import { FormattedMessage } from 'react-intl';
-
-import Provider from './Provider/Provider';
-import DevHarnessMessageApi from './DevHarnessMessageApi/DevHarnessMessageApi';
-import UiSdkContext from './Context';
+import { Context as UiSdkContext, DesignerApi } from '@ayx/ayx-ui-sdk';
 
 const messages = {
   en: {
@@ -30,21 +27,6 @@ const messages = {
     'example.label': '超棒的弦'
   }
 };
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  interface Window {
-    Alteryx: any;
-  }
-}
-
-const devHarnessMessageApi = new DevHarnessMessageApi();
-
-const initApp = async () => {
-  await devHarnessMessageApi.onReady();
-};
-
-initApp();
 
 const SampleIncrementButton = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
@@ -75,20 +57,22 @@ const SampleDecrementButton = () => {
 };
 
 ReactDOM.render(
-  <Provider messageBroker={devHarnessMessageApi} messages={messages}>
-    <Grid container>
-      <Grid item xs={3}>
-        <SampleIncrementButton />
+  <DesignerApi>
+    <AyxAppWrapper messages={messages}>
+      <Grid container>
+        <Grid item xs={3}>
+          <SampleIncrementButton />
+        </Grid>
+        <Grid item xs={3}>
+          <SampleDecrementButton />
+        </Grid>
       </Grid>
-      <Grid item xs={3}>
-        <SampleDecrementButton />
+      <Grid item spacing={6} style={{ marginTop: '20px' }}>
+        <Typography variant="h1">
+          <FormattedMessage id="example.label" />
+        </Typography>
       </Grid>
-    </Grid>
-    <Grid item spacing={6} style={{ marginTop: '20px' }}>
-      <Typography variant="h1">
-        <FormattedMessage id="example.label" />
-      </Typography>
-    </Grid>
-  </Provider>,
+    </AyxAppWrapper>
+  </DesignerApi>,
   document.getElementById('app')
 );
