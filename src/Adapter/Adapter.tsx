@@ -1,38 +1,44 @@
 import React, { Component } from 'react';
-import { Autocomplete } from '@ayx/ui-core-lab';
-import { TextField, Grid, FormControlLabel, Switch, AyxAppWrapper } from '@ayx/ui-core';
+import { TreeView, TreeItem } from '@ayx/ui-core-lab';
+import { Button, Drawer, Grid, AyxAppWrapper, Typography, Card } from '@ayx/ui-core';
+import { XSmall, ChevronRight, ChevronDown } from '@ayx/icons';
 import { withStyles } from '@ayx/ui-core/styles';
+
+import AppToggles from '../AppToggles';
+import AppHeader from '../AppHeader';
+
+interface IAdapterProps {
+  classes: any;
+}
+
+interface IAdapterState {
+  model: any;
+  darkMode: boolean;
+  locale: string;
+  drawerOpen: boolean;
+}
 
 const actionTypes = ['UPDATE_PALETTE_TYPE', 'UPDATE_THEME', 'UPDATE_LOCALE', 'UPDATE_MODEL'];
 
 const styles = {
   fullHeight: {
     height: '100%'
+  },
+  drawerWidth: {
+    width: 250
   }
 };
 
-const productTheme = {
-  overrides: {
-    MuiButton: {
-      contained: {
-        backgroundColor: 'blanchedAlmond'
-      }
-    }
-  }
-};
-
-class Adapter extends Component<any, any> {
+class Adapter extends Component<IAdapterProps, IAdapterState> {
   constructor(props) {
     super(props);
     this.state = {
-      initialContent: '',
       darkMode: false,
-      model: { count: 0 },
-      locale: 'en'
+      model: { count: 1, otherData: [{ someStuff: 'okay' }, { test: 'test' }] },
+      locale: 'en',
+      drawerOpen: false
     };
   }
-
-  contentDocument: any;
 
   contentWindow: any;
 
@@ -54,7 +60,7 @@ class Adapter extends Component<any, any> {
   sendUpdates = () => {
     const { model, darkMode, locale } = this.state;
     this.contentWindow.postMessage({ type: 'UPDATE_MODEL', payload: { ...model } }, '*');
-    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale, productTheme } }, '*');
+    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale } }, '*');
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -85,33 +91,56 @@ class Adapter extends Component<any, any> {
     });
   };
 
+  toggleModelDrawer = () => {
+    const { drawerOpen } = this.state;
+    this.setState({ drawerOpen: !drawerOpen });
+  };
+
+  renderTreeItem = model => {
+    return Object.keys(model).map(data => {
+      const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
+      return (
+        <TreeItem key={data} label={label} nodeId={data}>
+          {Array.isArray(model[data]) ? model[data].map(item => this.renderTreeItem(item)) : null}
+        </TreeItem>
+      );
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { darkMode, model, locale } = this.state;
+    const { darkMode, model, locale, drawerOpen } = this.state;
     return (
-      <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'} theme={productTheme}>
+      <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
-          <Grid container direction="column">
-            <Grid item xs={6}>
-              <Autocomplete
-                disableClearable
-                onChange={(e, value) => this.setLocale(value)}
-                options={['en', 'fr', 'de', 'es', 'pt', 'ja', 'zh']}
-                renderInput={(params) => <TextField {...params} fullWidth />}
-                value={locale}
-              />
-            </Grid>
-          </Grid>
-          <Grid container direction="column">
-            <Grid item xs={6}>
-              <h1>This is my count {model.count}</h1>
-            </Grid>
-          </Grid>
-          <Grid container direction="column">
-            <Grid item xs={6}>
-              <FormControlLabel control={<Switch onChange={() => this.setDarkMode(!darkMode)} />} label="Dark Mode" />
-            </Grid>
-          </Grid>
+          <AppHeader toggleModelDrawer={this.toggleModelDrawer} />
+          <Drawer open={drawerOpen}>
+            <Button
+              color="primary"
+              endIcon={<XSmall size="xsmall" />}
+              onClick={this.toggleModelDrawer}
+              size="small"
+              variant="contained"
+            >
+              Close
+            </Button>
+            <Typography> Current Model State </Typography>
+            <Card className={classes.drawerWidth}>
+              <TreeView
+                defaultCollapseIcon={<ChevronDown size="xsmall" />}
+                defaultExpandIcon={<ChevronRight size="xsmall" />}
+              >
+                {this.renderTreeItem(model)}
+              </TreeView>
+            </Card>
+          </Drawer>
+          <AppToggles
+            darkMode={darkMode}
+            handleSetDarkMode={this.setDarkMode}
+            handleSetLocale={this.setLocale}
+            locale={locale}
+            model={model}
+          />
           <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
           <Grid item style={{ width: '100%' }}>
             <iframe
