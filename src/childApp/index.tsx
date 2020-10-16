@@ -33,7 +33,7 @@ const SampleIncrementButton = () => {
   const updateModel = () => {
     const newModel = { ...model };
     newModel.count++;
-    handleUpdateModel({ model: { ...newModel } });
+    handleUpdateModel({ Configuration: { count: newModel.count } });
   };
   return (
     <Button color="primary" onClick={updateModel} variant="contained">
@@ -47,7 +47,7 @@ const SampleDecrementButton = () => {
   const decrementCount = () => {
     const newModel = { ...model };
     newModel.count--;
-    handleUpdateModel({ model: { ...newModel } });
+    handleUpdateModel({ Configuration: { count: newModel.count } });
   };
   return (
     <Button color="primary" onClick={decrementCount} variant="contained">
@@ -57,8 +57,8 @@ const SampleDecrementButton = () => {
 };
 
 ReactDOM.render(
-  <DesignerApi>
-    <AyxAppWrapper messages={messages}>
+  <DesignerApi messages={messages} ctx={{ AlteryxLanguageCode: 'en' }}>
+    <AyxAppWrapper>
       <Grid container>
         <Grid item xs={3}>
           <SampleIncrementButton />
