@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@ayx/ayx-scripts": "^3.1.1",
-    "@ayx/ayx-ui-sdk": "0.0.430777-alpha",
+    "@ayx/ayx-ui-sdk": "0.0.4-alpha",
     "@ayx/icons": "^3.4.1",
     "@ayx/ui-core": "^4.5.1",
     "@ayx/ui-core-lab": "^4.3.3",

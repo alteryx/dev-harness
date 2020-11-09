@@ -18,7 +18,7 @@ interface IAdapterState {
   drawerOpen: boolean;
 }
 
-const actionTypes = ['UPDATE_PALETTE_TYPE', 'UPDATE_THEME', 'UPDATE_LOCALE', 'UPDATE_MODEL'];
+const actionTypes = ['UPDATE_PALETTE_TYPE', 'UPDATE_THEME', 'UPDATE_LOCALE', 'MODEL_UPDATED'];
 
 const styles = {
   fullHeight: {
@@ -34,7 +34,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     super(props);
     this.state = {
       darkMode: false,
-      model: { count: 1, otherData: [{ someStuff: 'okay' }, { test: 'test' }] },
+      model: { Configuration: { count: 1, otherData: [{ someStuff: 'okay' }, { test: 'test' }] } },
       locale: 'en',
       drawerOpen: false
     };
@@ -49,7 +49,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   receiveMessageEnvelope = ({ data }) => {
     if (actionTypes.find(t => t === data.type)) {
       this.setState({
-        ...data.payload
+        model: { Configuration: data.payload.Configuration }
       });
     } else if (data.type === 'INIT') {
       this.contentWindow.postMessage({ type: 'HANDSHAKE_RECEIVED' });
@@ -59,8 +59,8 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
 
   sendUpdates = () => {
     const { model, darkMode, locale } = this.state;
-    this.contentWindow.postMessage({ type: 'UPDATE_MODEL', payload: { ...model } }, '*');
-    this.contentWindow.postMessage({ type: 'UPDATE_APP_CONTEXT', payload: { darkMode, locale } }, '*');
+    this.contentWindow.postMessage({ type: 'MODEL_UPDATED', payload: { ...model } }, '*');
+    this.contentWindow.postMessage({ type: 'AYX_APP_CONTEXT_UPDATED', payload: { darkMode, locale } }, '*');
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -110,6 +110,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   render() {
     const { classes } = this.props;
     const { darkMode, model, locale, drawerOpen } = this.state;
+    console.log('renderState', this.state)
     return (
       <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
@@ -139,7 +140,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             handleSetDarkMode={this.setDarkMode}
             handleSetLocale={this.setLocale}
             locale={locale}
-            model={model}
+            count={model.Configuration.count}
           />
           <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
           <Grid item style={{ width: '100%' }}>

@@ -7,7 +7,9 @@ interface IAppToggleProps {
   handleSetLocale: Function;
   handleSetDarkMode: Function;
   darkMode: boolean;
-  model: any;
+  model?: any;
+  configuration?: any;
+  count: any;
 }
 
 const useStyles = makeStyles({
@@ -17,7 +19,8 @@ const useStyles = makeStyles({
 });
 
 const AppToggles = (props: IAppToggleProps): JSX.Element => {
-  const { locale, handleSetLocale, handleSetDarkMode, darkMode, model } = props;
+  const { locale, handleSetLocale, handleSetDarkMode, darkMode, count } = props;
+  console.log('configuration', count)
   const classes = useStyles();
   return (
     <Grid container>
@@ -34,7 +37,7 @@ const AppToggles = (props: IAppToggleProps): JSX.Element => {
       </Grid>
       <Grid className={classes.spacing} container>
         <Grid item xs={3}>
-          <Typography variant="h3">This is my count {model.count}</Typography>
+          <Typography variant="h3">This is my count {count}</Typography>
         </Grid>
       </Grid>
       <Grid className={classes.spacing} container>

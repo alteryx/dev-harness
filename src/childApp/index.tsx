@@ -30,10 +30,11 @@ const messages = {
 
 const SampleIncrementButton = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
+  console.log(model)
   const updateModel = () => {
     const newModel = { ...model };
-    newModel.count++;
-    handleUpdateModel({ Configuration: { count: newModel.count } });
+    newModel.Configuration.count++;
+    handleUpdateModel({ Configuration: { count: newModel.Configuration.count } });
   };
   return (
     <Button color="primary" onClick={updateModel} variant="contained">
@@ -46,8 +47,8 @@ const SampleDecrementButton = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
   const decrementCount = () => {
     const newModel = { ...model };
-    newModel.count--;
-    handleUpdateModel({ Configuration: { count: newModel.count } });
+    newModel.Configuration.count--;
+    handleUpdateModel({ Configuration: { count: newModel.Configuration.count } });
   };
   return (
     <Button color="primary" onClick={decrementCount} variant="contained">
