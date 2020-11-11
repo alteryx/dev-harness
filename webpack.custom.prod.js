@@ -4,14 +4,14 @@ const path = require('path');
 
 module.exports = resolutionRoot => ({
   entry: {
-    app: path.resolve(resolutionRoot, 'src/childApp/index.tsx'),
+    app: path.resolve(resolutionRoot, 'src/src/index.tsx'),
   },
   output: {
     path: path.resolve(resolutionRoot, 'dist')
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/childApp/index.html',
+      template: './src/src/index.html',
       filename: './index.html',
       chunks: ['app'],
       minify: {
