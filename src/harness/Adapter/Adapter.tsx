@@ -102,7 +102,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       iterator = model.Configuration
     }
     return Object.keys(iterator).map(data => {
-      console.log(data)
       const label = iterator[data] && typeof iterator[data] !== 'object' ? `${data}: ${iterator[data]}` : data;
       return (
         <TreeItem key={data} label={label} nodeId={data}>
