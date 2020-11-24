@@ -37,11 +37,6 @@ const AppToggles = (props: IAppToggleProps): JSX.Element => {
       </Grid>
       <Grid className={classes.spacing} container>
         <Grid item xs={3}>
-          <Typography variant="h3">This is my count {count}</Typography>
-        </Grid>
-      </Grid>
-      <Grid className={classes.spacing} container>
-        <Grid item xs={3}>
           <FormControlLabel control={<Switch onChange={() => handleSetDarkMode(!darkMode)} />} label="Dark Mode" />
         </Grid>
       </Grid>

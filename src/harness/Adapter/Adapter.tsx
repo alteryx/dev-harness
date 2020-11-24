@@ -97,11 +97,16 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   };
 
   renderTreeItem = model => {
-    return Object.keys(model).map(data => {
-      const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
+    let iterator = model;
+    if (model.Configuration) {
+      iterator = model.Configuration
+    }
+    return Object.keys(iterator).map(data => {
+      console.log(data)
+      const label = iterator[data] && typeof iterator[data] !== 'object' ? `${data}: ${iterator[data]}` : data;
       return (
         <TreeItem key={data} label={label} nodeId={data}>
-          {Array.isArray(model[data]) ? model[data].map(item => this.renderTreeItem(item)) : null}
+          {Array.isArray(iterator[data]) ? iterator[data].map(item => this.renderTreeItem(item)) : null}
         </TreeItem>
       );
     });
@@ -110,7 +115,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   render() {
     const { classes } = this.props;
     const { darkMode, model, locale, drawerOpen } = this.state;
-    console.log('renderState', this.state)
     return (
       <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
