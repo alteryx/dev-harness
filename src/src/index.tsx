@@ -58,7 +58,7 @@ const SampleDecrementButton = () => {
 };
 
 ReactDOM.render(
-  <DesignerApi messages={messages} ctx={{ AlteryxLanguageCode: 'en' }}>
+  <DesignerApi messages={messages}>
     <AyxAppWrapper>
       <Grid container>
         <Grid item xs={3}>
