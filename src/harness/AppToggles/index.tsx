@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, FormControlLabel, Switch, TextField, makeStyles } from '@ayx/ui-core';
+import { Grid, FormControlLabel, Switch, TextField, makeStyles } from '@ayx/ui-core';
 import { Autocomplete } from '@ayx/ui-core-lab';
 
 interface IAppToggleProps {
