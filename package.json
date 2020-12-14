@@ -8,7 +8,6 @@
     "build": "webpack --config webpack.prod.js",
     "copy:designer": "node copyDesigner.js",
     "build:designer": "npm run build && npm run copy:designer",
-    "init": "ayx-scripts init",
     "test": "jest",
     "docs": "styleguidist server",
     "docs:build": "styleguidist build",
