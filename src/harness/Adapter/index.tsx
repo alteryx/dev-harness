@@ -141,12 +141,12 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             locale={locale}
             count={model.Configuration.count}
           />
-          <hr style={{ borderBottom: '5px solid red', width: '100%' }} />
-          <Grid item style={{ width: '100%' }}>
+          <hr style={{ marginBottom: '55px', borderBottom: '5px solid red', width: '100%' }} />
+          <Grid container>
             <iframe
               ref={this.handleRef}
               src="http://localhost:8080/childApp.html"
-              style={{ border: 0, height: '100%', width: '100%' }}
+              style={{ border: 0, height: '85vh', width: '100%' }}
               title="child-app"
             />
           </Grid>
