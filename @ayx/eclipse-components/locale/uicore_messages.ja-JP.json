@@ -1,0 +1,51 @@
+{
+  "props": {
+    "MuiAlert": {
+      "closeText": "閉じる"
+    },
+    "MuiAppLayout": {
+      "ariaLabelCloseDrawer": "ナビゲーションを非表示",
+      "ariaLabelOpenDrawer": "ナビゲーションを表示",
+      "logoText": "Alteryx"
+    },
+    "MuiAyxSelect": {
+      "placeholderText": "選択...",
+      "noOptionsText": "結果なし",
+      "loadingText": "データを読み込んでいます"
+    },
+    "MuiAutocomplete": {
+      "clearText": "クリア",
+      "closeText": "閉じる",
+      "loadingText": "読み込み中…",
+      "noOptionsText": "オプションなし",
+      "openText": "開く"
+    },
+    "MuiBreadcrumbs": {
+      "expandText": "パスを表示"
+    },
+    "MuiListBox": {
+      "footerText": "{checked}/{total} 選択済み",
+      "checkAllText": "すべて選択",
+      "searchPlaceholderText": "検索",
+      "noResultsText": "結果なし"
+    },
+    "MuiNumericInput": {
+      "incrementButtonText": "増分",
+      "decrementButtonText": "減分"
+    },
+    "MuiPagination": {
+      "aria-label": "ページネーションナビゲーション",
+      "getItemAriaLabel": "{type, select, page {{selected, select, true {} false {次のページ番号に移動: {page}}}} first {先頭ページに移動} last {最終ページに移動} next {次のページに移動} previous {前のページに移動} other {}}"
+    },
+    "MuiRating": {
+      "emptyLabelText": "空",
+      "getLabelText": "{value, plural, one {# 個のスター} other {# 個のスター}}"
+    },
+    "MuiTablePagination": {
+      "backIconButtonText": "前のページ",
+      "labelRowsPerPage": "ページあたりの行数:",
+      "nextIconButtonText": "次のページ",
+      "labelDisplayedRows": "{from}-{to} of {count, select, _1 {more than {to}} other {{count}}}"
+    }
+  }
+}

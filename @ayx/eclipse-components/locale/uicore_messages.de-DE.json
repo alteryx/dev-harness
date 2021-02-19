@@ -1,0 +1,51 @@
+{
+  "props": {
+    "MuiAlert": {
+      "closeText": "Schließen"
+    },
+    "MuiAppLayout": {
+      "ariaLabelCloseDrawer": "Navigation ausblenden",
+      "ariaLabelOpenDrawer": "Navigation anzeigen",
+      "logoText": "Alteryx"
+    },
+    "MuiAyxSelect": {
+      "placeholderText": "Auswählen...",
+      "noOptionsText": "Keine Ergebnisse",
+      "loadingText": "Daten werden geladen"
+    },
+    "MuiAutocomplete": {
+      "clearText": "Löschen",
+      "closeText": "Schließen",
+      "loadingText": "Ladevorgang läuft...",
+      "noOptionsText": "Keine Optionen",
+      "openText": "Öffnen"
+    },
+    "MuiBreadcrumbs": {
+      "expandText": "Pfad anzeigen"
+    },
+    "MuiListBox": {
+      "footerText": "{checked} von {total} ausgewählt",
+      "checkAllText": "Alle auswählen",
+      "searchPlaceholderText": "Suchen",
+      "noResultsText": "Keine Ergebnisse"
+    },
+    "MuiNumericInput": {
+      "incrementButtonText": "Inkrement",
+      "decrementButtonText": "Dekrement"
+    },
+    "MuiPagination": {
+      "aria-label": "Paginierungsnavigation",
+      "getItemAriaLabel": "{type, select, page {{selected, select, true {} false {Zu Seite gehen {page}}}} first {Zur ersten Seite gehen } last {Zur letzten Seite gehen } next {Zur nächsten Seite gehen } previous {Zur vorherigen Seite gehen} other {}}"
+    },
+    "MuiRating": {
+      "emptyLabelText": "Leer",
+      "getLabelText": "{value, plural, one {# Stern} other {# Sterne}}"
+    },
+    "MuiTablePagination": {
+      "backIconButtonText": "Vorherige Seite",
+      "labelRowsPerPage": "Zeilen pro Seite:",
+      "nextIconButtonText": "Nächste Seite",
+      "labelDisplayedRows": "{from} - {to} von {count, select, _1 { mehr als {to}} other {{count}}}"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "name": "@ayx/eclipse-components",
+  "version": "0.0.0",
+  "main": "build/index.js",
+  "module": "index.es.js",
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build:es2015": "cross-env NODE_ENV=production babel --config-file ./.babelrc.js ./src --copy-files --out-dir ./build --no-copy-ignored",
+    "build:es2015modules": "cross-env NODE_ENV=production BABEL_ENV=modules babel --config-file ./.babelrc.js ./src/index.js --out-file ./build/index.es.js",
+    "build:internal-icons": "rimraf src/internal/icons && babel-node --config-file ./.babelrc.js ./scripts/build-internal-icons.js",
+    "build:copy-files": "npm run build:copy-package-json && npm run build:copy-files-material && npm run build:copy-files-custom-components && npm run build:copy-strings",
+    "build:copy-package-json": "babel-node --config-file ./.babelrc.js ./scripts/copy-package-json.js",
+    "build:copy-files-custom-components": "babel-node --config-file ./.babelrc.js ./scripts/copy-files.js ../src/**/*.d.ts ../build es AyxAppWrapper IntlProviderWithArrows",
+    "build:copy-strings": "babel-node --config-file ./.babelrc.js ./scripts/copy-strings.js ./src/locale ./build",
+    "build:copy-files-material": "babel-node --config-file ./.babelrc.js ./scripts/copy-files.js ../node_modules/@material-ui/core/**/*.d.ts ../build es AyxAppWrapper IntlProviderWithArrows",
+    "build:create-index-es": "node -e \"fs.copyFileSync('./src/index.js', './build/index.es.js')\"",
+    "release": "npm run build:create-index-es && npm run build:copy-files && npm publish build --non-interactive",
+    "clean": "rimraf build",
+    "build": "npm run build:internal-icons && npm run build:es2015 && npm run build:es2015modules && npm run build:copy-files",
+    "test": "npm run build:internal-icons && jest --silent",
+    "size:snapshot": "node scripts/sizeSnapshot/create",
+    "lint": "eslint ./src/** ./scripts/**"
+  },
+  "dependencies": {
+    "@ayx/icons": "file:../../@ayx/eclipse-icons",
+    "@material-ui/core": "4.11.0",
+    "@material-ui/styles": "^4.0.0",
+    "@material-ui/system": "^4.0.0",
+    "@material-ui/types": "^5.0.0",
+    "@material-ui/utils": "^4.0.0",
+    "classnames": "^2.2.6",
+    "deepmerge": "^4.0.0",
+    "react-select": "^4.1.0",
+    "react-window": "^1.8.5",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.2",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-react-remove-properties": "^0.3.0",
+    "babel-plugin-transform-dev-warning": "^0.1.1",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "clsx": "^1.1.0",
+    "compression-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.0",
+    "danger": "^10.1.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^7.0.0",
+    "eslint-config-ui-core": "^1.0.35",
+    "eslint-plugin-ui-core": "0.0.414015-alpha",
+    "fs-extra": "^9.0.0",
+    "jest": "^26.0.0",
+    "jest-rail": "^1.0.11",
+    "lodash": "^4.17.20",
+    "npm-run-all": "4.1.5",
+    "prettier": "^2.0.5",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-intl": "^5.8.1",
+    "react-is": "^16.13.1",
+    "react-number-format": "^4.2.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-text-mask": "^5.4.3",
+    "recompose": "^0.30.0",
+    "sinon": "^9.0.2",
+    "typescript": "^4.0.2",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.3"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.0",
+    "react-dom": "^16.10.0",
+    "react-intl": "^5.8.1"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
+  }
+}

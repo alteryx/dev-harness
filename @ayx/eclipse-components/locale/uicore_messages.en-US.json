@@ -1,0 +1,51 @@
+{
+  "props": {
+    "MuiAlert": {
+      "closeText": "Close"
+    },
+    "MuiAppLayout": {
+      "ariaLabelCloseDrawer": "hide navigation",
+      "ariaLabelOpenDrawer": "show navigation",
+      "logoText": "Alteryx"
+    },
+    "MuiAyxSelect": {
+      "placeholderText": "Select...",
+      "noOptionsText": "No results",
+      "loadingText": "Loading data"
+    },
+    "MuiAutocomplete": {
+      "clearText": "Clear",
+      "closeText": "Close",
+      "loadingText": "Loading…",
+      "noOptionsText": "No options",
+      "openText": "Open"
+    },
+    "MuiBreadcrumbs": {
+      "expandText": "Show path"
+    },
+    "MuiListBox": {
+      "footerText": "{checked} of {total} Checked",
+      "checkAllText": "Check All",
+      "searchPlaceholderText": "Search",
+      "noResultsText": "No results"
+    },
+    "MuiNumericInput": {
+      "incrementButtonText": "increment",
+      "decrementButtonText": "decrement"
+    },
+    "MuiPagination": {
+      "aria-label": "Pagination navigation",
+      "getItemAriaLabel": "{type, select, page {{selected, select, true {} false {Go to page {page}}}} first {Go to first page} last {Go to last page} next {Go to next page} previous {Go to previous page} other {}}"
+    },
+    "MuiRating": {
+      "emptyLabelText": "Empty",
+      "getLabelText": "{value, plural, one {# star} other {# stars}}"
+    },
+    "MuiTablePagination": {
+      "backIconButtonText": "Previous page",
+      "labelRowsPerPage": "Rows per page:",
+      "nextIconButtonText": "Next page",
+      "labelDisplayedRows": "{from}-{to} of {count, select, _1 {more than {to}} other {{count}}}"
+    }
+  }
+}

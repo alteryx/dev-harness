@@ -20,5 +20,15 @@ module.exports = {
   plugins: [
     ['@babel/plugin-syntax-dynamic-import'],
     ['@babel/transform-runtime'],
-  ]
+    ["transform-imports", {
+      "@ayx/icons\/?(((\\w*)?\/?)*)": {
+        "transform": importName => {
+          const splitName = importName.split(/(?=[A-Z])/)
+          const folderName = splitName !== null ? splitName.join('-').toLocaleLowerCase() : importName.toLocaleLowerCase();
+          return `@ayx/eclipse-icons/icons/${folderName}`;
+        }
+      },
+    }],
+  ],
+  
 };

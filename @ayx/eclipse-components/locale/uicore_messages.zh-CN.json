@@ -1,0 +1,51 @@
+{
+  "props": {
+    "MuiAlert": {
+      "closeText": "关闭"
+    },
+    "MuiAppLayout": {
+      "ariaLabelCloseDrawer": "隐藏导航",
+      "ariaLabelOpenDrawer": "显示导航",
+      "logoText": "Alteryx"
+    },
+    "MuiAyxSelect": {
+      "placeholderText": "选择...",
+      "noOptionsText": "无结果",
+      "loadingText": "正在加载数据"
+    },
+    "MuiAutocomplete": {
+      "clearText": "清除",
+      "closeText": "关闭",
+      "loadingText": "正在加载…",
+      "noOptionsText": "无选项",
+      "openText": "打开"
+    },
+    "MuiBreadcrumbs": {
+      "expandText": "显示路径"
+    },
+    "MuiListBox": {
+      "footerText": "选中了{total}项中的{checked}项",
+      "checkAllText": "全选",
+      "searchPlaceholderText": "搜索",
+      "noResultsText": "无结果"
+    },
+    "MuiNumericInput": {
+      "incrementButtonText": "增量",
+      "decrementButtonText": "减量"
+    },
+    "MuiPagination": {
+      "aria-label": "分页导航",
+      "getItemAriaLabel": "{type, select, page {{selected, select, true {} false {Go to page}}{page}} first {Go to first page} last {Go to last page} next {Go to next page} previous {Go to previous page} other {}}"
+    },
+    "MuiRating": {
+      "emptyLabelText": "空白",
+      "getLabelText": "#{value, plural, one {星} other {#星}}"
+    },
+    "MuiTablePagination": {
+      "backIconButtonText": "上一页",
+      "labelRowsPerPage": "每页行数：",
+      "nextIconButtonText": "下一页",
+      "labelDisplayedRows": "{from}-{to} of {count, select, _1 {more than {to}} other {{count}}}"
+    }
+  }
+}

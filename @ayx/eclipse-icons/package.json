@@ -1,0 +1,18 @@
+{
+  "name": "@ayx/icons",
+  "version": "0.0.0",
+  "description": "React component for Alteryx icons",
+  "main": "./index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.0",
+    "react-dom": "^16.10.0"
+  },
+  "license": "MIT",
+  "module": "./index.es.js",
+  "private": false
+}

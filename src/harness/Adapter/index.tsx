@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { TreeView, TreeItem } from '@ayx/ui-core-lab';
-import { Button, Drawer, Grid, AyxAppWrapper, Typography, Card } from '@ayx/ui-core';
+import { Button, Drawer, Grid, AyxAppWrapper, Typography, Card } from '@ayx/eclipse-components';
 import { XSmall, ChevronRight, ChevronDown } from '@ayx/icons';
-import { withStyles } from '@ayx/ui-core/styles';
+import { withStyles } from '@ayx/eclipse-components/styles';
 
 import AppToggles from '../AppToggles';
 import AppHeader from '../AppHeader';
@@ -96,17 +95,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     this.setState({ drawerOpen: !drawerOpen });
   };
 
-  renderTreeItem = model => {
-    return Object.keys(model).map(data => {
-      const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
-      return (
-        <TreeItem key={data} label={label} nodeId={data}>
-          {Array.isArray(model[data]) ? model[data].map(item => this.renderTreeItem(item)) : null}
-        </TreeItem>
-      );
-    });
-  };
-
   render() {
     const { classes } = this.props;
     const { darkMode, model, locale, drawerOpen } = this.state;
@@ -126,12 +114,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             </Button>
             <Typography> Current Model State </Typography>
             <Card className={classes.drawerWidth}>
-              <TreeView
-                defaultCollapseIcon={<ChevronDown size="xsmall" />}
-                defaultExpandIcon={<ChevronRight size="xsmall" />}
-              >
-                {this.renderTreeItem(model.Configuration)}
-              </TreeView>
             </Card>
           </Drawer>
           <AppToggles

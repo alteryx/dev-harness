@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, FormControlLabel, Switch, TextField, makeStyles } from '@ayx/ui-core';
-import { Autocomplete } from '@ayx/ui-core-lab';
+import { Grid, FormControlLabel, Switch, TextField, makeStyles } from '@ayx/eclipse-components';
 
 interface IAppToggleProps {
   locale: string;
@@ -25,15 +24,6 @@ const AppToggles = (props: IAppToggleProps): JSX.Element => {
   return (
     <Grid container>
       <Grid className={classes.spacing} container>
-        <Grid item xs={1}>
-          <Autocomplete
-            disableClearable
-            onChange={(e, value) => handleSetLocale(value)}
-            options={['en', 'fr', 'de', 'es', 'pt', 'ja', 'zh']}
-            renderInput={params => <TextField {...params} label="Current locale" />}
-            value={locale}
-          />
-        </Grid>
       </Grid>
       <Grid className={classes.spacing} container>
         <Grid item xs={3}>

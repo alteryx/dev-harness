@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Typography, Grid } from '@ayx/ui-core';
-import { DesignerApi } from '@ayx/ayx-ui-sdk';
+import { AyxAppWrapper, Typography, Grid } from '@ayx/eclipse-components';
+import { DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
   return (

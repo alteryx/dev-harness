@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Grid, Typography, Button } from '@ayx/ui-core';
+import { AppBar, Grid, Typography, Button } from '@ayx/eclipse-components';
 
 interface IAppHeaderProps {
   toggleModelDrawer: any;

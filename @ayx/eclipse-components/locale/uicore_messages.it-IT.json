@@ -1,0 +1,51 @@
+{
+  "props": {
+    "MuiAlert": {
+      "closeText": "Chiudi"
+    },
+    "MuiAppLayout": {
+      "ariaLabelCloseDrawer": "nascondi navigazione",
+      "ariaLabelOpenDrawer": "mostra navigazione",
+      "logoText": "Alteryx"
+    },
+    "MuiAyxSelect": {
+      "placeholderText": "Seleziona...",
+      "noOptionsText": "Nessun risultato",
+      "loadingText": "Caricamento dati"
+    },
+    "MuiAutocomplete": {
+      "clearText": "Cancella",
+      "closeText": "Chiudi",
+      "loadingText": "Caricamento in corso...",
+      "noOptionsText": "Nessuna opzione",
+      "openText": "Apri"
+    },
+    "MuiBreadcrumbs": {
+      "expandText": "Mostra percorso"
+    },
+    "MuiListBox": {
+      "footerText": "{checked} di {total} selezionati",
+      "checkAllText": "Seleziona tutto",
+      "searchPlaceholderText": "Ricerca",
+      "noResultsText": "Nessun risultato"
+    },
+    "MuiNumericInput": {
+      "incrementButtonText": "incremento",
+      "decrementButtonText": "decremento"
+    },
+    "MuiPagination": {
+      "aria-label": "Navigazione della paginazione",
+      "getItemAriaLabel": "{type, select, page {{selected, select, true {} false {Vai a pagina {page}}}} first {Vai alla prima pagina} last {Vai all'ultima pagina} next {Vai alla pagina successiva} previous {Vai alla pagina precedente} other {}}"
+    },
+    "MuiRating": {
+      "emptyLabelText": "Vuoto",
+      "getLabelText": "{value, plural, one {# stella} other {# stelle}}"
+    },
+    "MuiTablePagination": {
+      "backIconButtonText": "Pagina precedente",
+      "labelRowsPerPage": "Righe per pagina:",
+      "nextIconButtonText": "Pagina successiva",
+      "labelDisplayedRows": "{from}-{to} di {count, select, _1 {più di {to}} other {{count}}}"
+    }
+  }
+}
