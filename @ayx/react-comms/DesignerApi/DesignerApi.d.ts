@@ -1,3 +1,4 @@
+import React from 'react';
 import { IContext } from '../Utils/types';
 
 interface IDesignerApiProps {

@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Typography, Grid } from '@ayx/eclipse-components';
-import { DesignerApi } from '@ayx/react-comms';
+import { AyxAppWrapper, Typography, Grid, Button } from '@ayx/eclipse-components';
+import { DesignerApi, Context as UiSdkContext } from '@ayx/react-comms';
+
+const Stuff = () => {
+  const [model, handleUpdateModel] = useContext(UiSdkContext);
+  const incrementCount = () => {
+    const newModel = {...model};
+    model.Configuration.count++;
+    handleUpdateModel(newModel);
+  }
+
+  return (
+    <>
+      <Button onClick={incrementCount}> Click me </Button>
+      <Typography>count: {model.Configuration.count}</Typography> 
+    </>
+  )
+}
 
 const App = () => {
+
   return (
-    <DesignerApi messages={{}}>
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { count: 0 } }}>
       <AyxAppWrapper>
         {/* REPLACE WITH YOUR CODE */}
+        <Stuff />
         <Grid container spacing={10}>
           <Grid item xs={12}>
             <Grid container justify="center">

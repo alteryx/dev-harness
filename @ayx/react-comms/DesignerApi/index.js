@@ -43,6 +43,7 @@ const DesignerApi = props => {
   }
 
   const mergedState = (0, _deepmerge.default)(messageBroker.model, defaultConfig);
+  console.log('mergedState', mergedState);
   const [model, updateModel] = (0, _react.useState)(mergedState);
   const [appContext, updateAppContext] = (0, _react.useState)(messageBroker.ayxAppContext);
 
@@ -72,10 +73,12 @@ const DesignerApi = props => {
     };
   }, []);
   const getContextValue = (0, _react.useCallback)(() => [model, handleUpdateModel], [model, handleUpdateModel]);
+  console.log('getting context value', getContextValue());
   const contextProps = {
     id: 'sdk-provider',
     value: getContextValue()
   };
+  console.log('context props', contextProps);
   const {
     darkMode,
     locale,
