@@ -1,21 +1,17 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Box, Grid, Typography } from '@ayx/ui-core';
+import { AyxAppWrapper, Box, Grid, Typography } from '@ayx/eclipse-components';
 import { FormattedMessage } from 'react-intl';
-import { Context as UiSdkContext, DesignerApi } from '@ayx/ayx-ui-sdk';
+import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const Child = () => {
   const [model, handleUpdateModel] = React.useContext(UiSdkContext);
 
   const updateModel = () => {
-    
-    console.log("MODEL")
-    console.dir(model);
-    //handleUpdateModel({Configuration: { abc: "4" }})
+    handleUpdateModel({Configuration: {...model.Configuration, KeyFromUpdateModel: 777 }})
   }
 
-  return (<AyxAppWrapper> 
-    {/* REPLACE WITH YOUR CODE */}
+  return (
     <Box m={4}>
       <Grid container spacing={10} direction="column" alignItems="center">
         <Grid item onClick={updateModel}>
@@ -31,13 +27,15 @@ const Child = () => {
         </Grid>
       </Grid>
     </Box>
-  </AyxAppWrapper>)
+  )
 }
 
 const App = () => {
   return (
-    <DesignerApi messages={{}} defaultConfig={{ Configuration: { repo: "0" }}} >
-      <Child />
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { KeyFromDefaultConfig: 444 }}} >
+      <AyxAppWrapper> 
+        <Child />
+      </AyxAppWrapper>
     </DesignerApi>
   )
 }

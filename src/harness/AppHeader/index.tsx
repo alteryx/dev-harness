@@ -1,6 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Grid, Divider, Typography, FormControlLabel, Switch, makeStyles, TextField } from '@ayx/ui-core';
-import { Autocomplete } from '@ayx/ui-core-lab';
+import { AppBar, Toolbar, Grid, Divider, Typography, FormControlLabel, Switch, makeStyles } from '@ayx/eclipse-components';
 
 interface IAppHeaderProps {
   locale: string;
@@ -31,13 +30,13 @@ const AppHeader = (props: IAppHeaderProps): JSX.Element => {
             <Grid item>
               <Grid container spacing={4}>
                 <Grid item>
-                  <Autocomplete
+                  {/* <Autocomplete
                     disableClearable
                     onChange={(e, value) => handleSetLocale(value)}
                     options={['en', 'fr', 'de', 'es', 'pt', 'ja', 'zh']}
                     renderInput={params => <TextField {...params} />}
                     value={locale}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item>
                   <FormControlLabel control={<Switch onChange={() => handleSetDarkMode(!darkMode)} />} label="Dark Mode" />

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { TreeView, TreeItem } from '@ayx/ui-core-lab';
-import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails } from '@ayx/ui-core';
-import { ChevronRight, ChevronDown, ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/icons';
-import { withStyles } from '@ayx/ui-core/styles';
+// import { TreeView, TreeItem } from '@ayx/ui-core-lab';
+import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@ayx/eclipse-components';
+import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/eclipse-icons';
 
 import AppHeader from '../AppHeader';
 
@@ -58,7 +57,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     super(props);
     this.state = {
       darkMode: false,
-      model: { MetaInfo: {key: 2}, Configuration: {key2: 3}},
+      model: { Meta: {MetaKeyExample1: 999}, Configuration: {KeyFromAdapter1: 1234, KeyFromAdapter2: 1234, KeyFromAdapter3: [ {NestedKey1: 324, NestedKey2: [{NestedNestedKey1: 324, NestedNestedKey2: 324}]} ]}},
       locale: 'en',
       modelDrawerOpen: true,
       toolDrawerOpen: true
@@ -73,16 +72,12 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
 
   receiveMessageEnvelope = ({ data }) => {
     if (actionTypes.find(t => t === data.type)) {
-
-      console.log("receiveMessageEnvelope")
-      console.dir(data.payload)
-
       const curModel = this.state.model;
 
       this.setState({
         model: { 
           Configuration: data.payload.Configuration,
-          MetaInfo: this.state.model.MetaInfo,
+          Meta: this.state.model.Meta,
           Secrets: this.state.model.Secrets,
          }
       });
@@ -135,6 +130,21 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     const { modelDrawerOpen } = this.state;
     this.setState({ modelDrawerOpen: !modelDrawerOpen });
   };
+
+  renderListItem = (model) => {
+    return Object.keys(model).map(data => {
+      const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
+      return (
+        <>
+        <ListItem key={data}>
+          <ListItemText primary={label} />
+        </ListItem>
+        {Array.isArray(model[data]) ? model[data].map(item => <Collapse in={true} timeout="auto" unmountOnExit><Box pl={6}>{this.renderListItem(item)}</Box></Collapse>) : null}
+        </>
+      );
+    });
+  };
+
 
   render() {
     const { classes } = this.props;
@@ -209,30 +219,22 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                         <Typography variant="overline">Configuration</Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <TreeView
-                          defaultCollapseIcon={<ChevronDown />}
-                          defaultExpandIcon={<ChevronRight />}
-                          disableSelection={true}
-                        >
-                          {this.renderTreeItem(model.Configuration)}
-                        </TreeView>
+                        <List>
+                          {this.renderListItem(model.Configuration)}
+                        </List>
                       </AccordionDetails>
                     </Accordion>
                   </Grid>
-                  {model.MetaInfo ?
+                  {model.Meta ?
                   <Grid item xs={12}>
                     <Accordion>
                       <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-                        <Typography variant="overline">MetaInfo</Typography>
+                        <Typography variant="overline">Meta</Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <TreeView
-                          defaultCollapseIcon={<ChevronDown />}
-                          defaultExpandIcon={<ChevronRight />}
-                          disableSelection={true}
-                        >
-                          {this.renderTreeItem(model.MetaInfo)}
-                        </TreeView>
+                        <List>
+                          {this.renderListItem(model.Meta)}
+                        </List>
                       </AccordionDetails>
                     </Accordion>
                   </Grid>: null}
@@ -243,13 +245,9 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                           <Typography variant="overline">Secrets</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <TreeView
-                            defaultCollapseIcon={<ChevronDown />}
-                            defaultExpandIcon={<ChevronRight />}
-                            disableSelection={true}
-                          >
-                            {this.renderTreeItem(model.Secrets)}
-                          </TreeView>
+                          <List>
+                            {this.renderListItem(model.Secrets)}
+                          </List>
                         </AccordionDetails>
                       </Accordion>
                   </Grid> : null
