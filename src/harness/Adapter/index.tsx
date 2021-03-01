@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Drawer, Grid, AyxAppWrapper, Typography, Card } from '@ayx/eclipse-components';
-import { XSmall, ChevronRight, ChevronDown } from '@ayx/icons';
-import { withStyles } from '@ayx/eclipse-components/styles';
+import { TreeView, TreeItem } from '@ayx/ui-core-lab';
+import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails } from '@ayx/ui-core';
+import { ChevronRight, ChevronDown, ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/icons';
+import { withStyles } from '@ayx/ui-core/styles';
 
-import AppToggles from '../AppToggles';
 import AppHeader from '../AppHeader';
 
 interface IAdapterProps {
@@ -14,28 +14,54 @@ interface IAdapterState {
   model: any;
   darkMode: boolean;
   locale: string;
-  drawerOpen: boolean;
+  modelDrawerOpen: boolean;
+  toolDrawerOpen: boolean;
 }
 
 const actionTypes = ['UPDATE_PALETTE_TYPE', 'UPDATE_THEME', 'UPDATE_LOCALE', 'MODEL_UPDATED'];
 
-const styles = {
+const styles = (theme) => ({
   fullHeight: {
     height: '100%'
   },
-  drawerWidth: {
-    width: 250
+  toolDrawerOpen: {
+    width: 400,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  toolDrawerExpanded: {
+    width: 600,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  modelDrawerOpen: {
+    width: 400,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+  },
+  modelDrawerClosed: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    }),
   }
-};
+});
 
 class Adapter extends Component<IAdapterProps, IAdapterState> {
   constructor(props) {
     super(props);
     this.state = {
       darkMode: false,
-      model: { Configuration: { count: 1, otherData: [{ someStuff: 'okay' }, { test: 'test' }] } },
+      model: { MetaInfo: {key: 2}, Configuration: {key2: 3}},
       locale: 'en',
-      drawerOpen: false
+      modelDrawerOpen: true,
+      toolDrawerOpen: true
     };
   }
 
@@ -47,8 +73,18 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
 
   receiveMessageEnvelope = ({ data }) => {
     if (actionTypes.find(t => t === data.type)) {
+
+      console.log("receiveMessageEnvelope")
+      console.dir(data.payload)
+
+      const curModel = this.state.model;
+
       this.setState({
-        model: { Configuration: data.payload.Configuration }
+        model: { 
+          Configuration: data.payload.Configuration,
+          MetaInfo: this.state.model.MetaInfo,
+          Secrets: this.state.model.Secrets,
+         }
       });
     } else if (data.type === 'INIT') {
       this.contentWindow.postMessage({ type: 'HANDSHAKE_RECEIVED' });
@@ -90,47 +126,138 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     });
   };
 
+  toggleToolDrawer = () => {
+    const { toolDrawerOpen } = this.state;
+    this.setState({ toolDrawerOpen: !toolDrawerOpen });
+  };
+
   toggleModelDrawer = () => {
-    const { drawerOpen } = this.state;
-    this.setState({ drawerOpen: !drawerOpen });
+    const { modelDrawerOpen } = this.state;
+    this.setState({ modelDrawerOpen: !modelDrawerOpen });
   };
 
   render() {
     const { classes } = this.props;
-    const { darkMode, model, locale, drawerOpen } = this.state;
+    const { darkMode, model, locale, modelDrawerOpen, toolDrawerOpen } = this.state;
     return (
-      <AyxAppWrapper locale={this.state.locale} paletteType={darkMode ? 'dark' : 'light'}>
+      <AyxAppWrapper locale={locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
-          <AppHeader toggleModelDrawer={this.toggleModelDrawer} />
-          <Drawer open={drawerOpen}>
-            <Button
-              color="primary"
-              endIcon={<XSmall size="xsmall" />}
-              onClick={this.toggleModelDrawer}
-              size="small"
-              variant="contained"
-            >
-              Close
-            </Button>
-            <Typography> Current Model State </Typography>
-            <Card className={classes.drawerWidth}>
-            </Card>
-          </Drawer>
-          <AppToggles
-            darkMode={darkMode}
-            handleSetDarkMode={this.setDarkMode}
-            handleSetLocale={this.setLocale}
-            locale={locale}
-            count={model.Configuration.count}
-          />
-          <hr style={{ marginBottom: '55px', borderBottom: '5px solid red', width: '100%' }} />
-          <Grid container>
-            <iframe
-              ref={this.handleRef}
-              src="http://localhost:8080/childApp.html"
-              style={{ border: 0, height: '85vh', width: '100%' }}
-              title="child-app"
-            />
+          <Grid item>
+            <AppHeader 
+              darkMode={darkMode}
+              handleSetDarkMode={this.setDarkMode}
+              handleSetLocale={this.setLocale}
+              locale={locale}/>
+          </Grid>
+          
+          <Grid item container className={classes.fullHeight}>
+
+            <Grid item xs="auto" className={toolDrawerOpen ? classes.toolDrawerOpen : classes.toolDrawerExpanded}>
+              <Box m={4}>
+                <Grid container alignItems="center">
+                  <Grid item xs>
+                    <Typography variant="overline">Tool Name (1)</Typography>
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={this.toggleToolDrawer}>
+                      { toolDrawerOpen ? <MaximizeHorizontal /> : <MinimizeHorizontal /> }
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Divider />
+              <iframe
+                ref={this.handleRef}
+                src="http://localhost:8080/childApp.html"
+                style={{ border: 0, height: '100%', width: '100%'}}
+                title="child-app"
+              />
+            </Grid>
+
+            <Divider orientation="vertical" />
+            <Grid item xs>
+              <Paper className={classes.fullHeight}>
+                <Grid className={classes.fullHeight} container justify="center" alignContent="center">
+                  <Grid item>
+                    <img width="60" src="../../buildTemplates/exampleToolIcon.png" />
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Divider orientation="vertical" /> 
+
+            <Grid item xs="auto" className={modelDrawerOpen ? classes.modelDrawerOpen : classes.modelDrawerClosed}>
+              <Box m={4}>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <IconButton onClick={this.toggleModelDrawer}>
+                      { modelDrawerOpen ? <ArrowRight /> : <ArrowLeft /> }
+                    </IconButton>
+                  </Grid>
+                  { modelDrawerOpen ? <Grid item xs>
+                    <Typography align="right">Model</Typography>
+                  </Grid> : null }
+                </Grid>
+              </Box>
+              <Divider />
+
+              { modelDrawerOpen ? 
+                <>
+                  <Grid item xs={12}>
+                    <Accordion>
+                      <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+                        <Typography variant="overline">Configuration</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <TreeView
+                          defaultCollapseIcon={<ChevronDown />}
+                          defaultExpandIcon={<ChevronRight />}
+                          disableSelection={true}
+                        >
+                          {this.renderTreeItem(model.Configuration)}
+                        </TreeView>
+                      </AccordionDetails>
+                    </Accordion>
+                  </Grid>
+                  {model.MetaInfo ?
+                  <Grid item xs={12}>
+                    <Accordion>
+                      <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+                        <Typography variant="overline">MetaInfo</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <TreeView
+                          defaultCollapseIcon={<ChevronDown />}
+                          defaultExpandIcon={<ChevronRight />}
+                          disableSelection={true}
+                        >
+                          {this.renderTreeItem(model.MetaInfo)}
+                        </TreeView>
+                      </AccordionDetails>
+                    </Accordion>
+                  </Grid>: null}
+                  {model.Secrets ?
+                  <Grid item xs={12}>
+                      <Accordion>
+                        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+                          <Typography variant="overline">Secrets</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <TreeView
+                            defaultCollapseIcon={<ChevronDown />}
+                            defaultExpandIcon={<ChevronRight />}
+                            disableSelection={true}
+                          >
+                            {this.renderTreeItem(model.Secrets)}
+                          </TreeView>
+                        </AccordionDetails>
+                      </Accordion>
+                  </Grid> : null
+                  }
+                </>
+              : null }
+            </Grid>
+
           </Grid>
         </Grid>
       </AyxAppWrapper>
