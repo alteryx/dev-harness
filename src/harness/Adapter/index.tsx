@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import { TreeView, TreeItem } from '@ayx/ui-core-lab';
-import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@ayx/eclipse-components';
-import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/eclipse-icons';
+import { Box, Grid, Paper, InputAdornment, AyxAppWrapper, Select, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@ayx/eclipse-components';
+import { InputTool, ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/eclipse-icons';
 
 import AppHeader from '../AppHeader';
+import { candies, addresses } from '../exampleData';
 
 interface IAdapterProps {
   classes: any;
@@ -23,6 +24,10 @@ const styles = (theme) => ({
   fullHeight: {
     height: '100%'
   },
+  contentHeight: {
+    height: 'calc(100vh - 32px)',
+    overflowY: 'hidden'
+  },
   toolDrawerOpen: {
     width: 400,
     transition: theme.transitions.create('width', {
@@ -38,6 +43,7 @@ const styles = (theme) => ({
     })
   },
   modelDrawerOpen: {
+    height: '100%',
     width: 400,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -45,6 +51,7 @@ const styles = (theme) => ({
     }),
   },
   modelDrawerClosed: {
+    height: '100%',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
@@ -52,12 +59,25 @@ const styles = (theme) => ({
   }
 });
 
+const inputOptions = [{
+  value: 'none',
+  primary: 'No Input'
+}, {
+  value: 'candies',
+  primary: 'Candies'
+}];
+
+const exampleData = {
+  candies: candies,
+  addresses: addresses,
+}
+
 class Adapter extends Component<IAdapterProps, IAdapterState> {
   constructor(props) {
     super(props);
     this.state = {
       darkMode: false,
-      model: { Meta: {MetaKeyExample1: 999}, Configuration: {KeyFromAdapter1: 1234, KeyFromAdapter2: 1234, KeyFromAdapter3: [ {NestedKey1: 324, NestedKey2: [{NestedNestedKey1: 324, NestedNestedKey2: 324}]} ]}},
+      model: { Configuration: {KeyFromAdapter1: 1234, KeyFromAdapter2: 3432, KeyFromAdapter3: [ {NestedKey1: 324, NestedKey2: [{NestedNestedKey1: 324, NestedNestedKey2: 324}]} ]}},
       locale: 'en',
       modelDrawerOpen: true,
       toolDrawerOpen: true
@@ -73,12 +93,9 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   receiveMessageEnvelope = ({ data }) => {
     if (actionTypes.find(t => t === data.type)) {
       const curModel = this.state.model;
-
       this.setState({
         model: { 
-          Configuration: data.payload.Configuration,
-          Meta: this.state.model.Meta,
-          Secrets: this.state.model.Secrets,
+          ...curModel, ...{Configuration: data.payload.Configuration}
          }
       });
     } else if (data.type === 'INIT') {
@@ -131,6 +148,20 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     this.setState({ modelDrawerOpen: !modelDrawerOpen });
   };
 
+  handleInputChange = (e) => {
+    const curModel = this.state.model;
+    const meta = e.target.value !== 'none' ? {
+      Meta: {
+        [e.target.value]: exampleData[e.target.value]
+      }
+    } : { Meta: undefined };
+    this.setState({
+      model: { 
+        ...curModel, ...meta
+       }
+    });
+  };
+
   renderListItem = (model) => {
     return Object.keys(model).map(data => {
       const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
@@ -144,7 +175,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       );
     });
   };
-
 
   render() {
     const { classes } = this.props;
@@ -160,7 +190,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
               locale={locale}/>
           </Grid>
           
-          <Grid item container className={classes.fullHeight}>
+          <Grid item container className={classes.contentHeight}>
 
             <Grid item xs="auto" className={toolDrawerOpen ? classes.toolDrawerOpen : classes.toolDrawerExpanded}>
               <Box m={4}>
@@ -185,8 +215,17 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             </Grid>
 
             <Divider orientation="vertical" />
-            <Grid item xs>
+            <Grid item xs className={classes.fullHeight}>
               <Paper className={classes.fullHeight}>
+              
+                <Grid container justify="center">
+                  <Grid item xs="auto">
+                    <Box m={4}>
+                      <Select onChange={this.handleInputChange} options={inputOptions} defaultValue="none" disableClearable />
+                    </Box>
+                  </Grid>
+                </Grid>
+              
                 <Grid className={classes.fullHeight} container justify="center" alignContent="center">
                   <Grid item>
                     <img width="60" src="../../buildTemplates/exampleToolIcon.png" />
@@ -215,10 +254,10 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                 <>
                   <Grid item xs={12}>
                     <Accordion>
-                      <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+                    <AccordionSummary aria-controls="config-content" id="config-header">
                         <Typography variant="overline">Configuration</Typography>
                       </AccordionSummary>
-                      <AccordionDetails>
+                      <AccordionDetails id="config-content">
                         <List>
                           {this.renderListItem(model.Configuration)}
                         </List>
@@ -228,10 +267,10 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                   {model.Meta ?
                   <Grid item xs={12}>
                     <Accordion>
-                      <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+                      <AccordionSummary aria-controls="meta-content" id="meta-header">
                         <Typography variant="overline">Meta</Typography>
                       </AccordionSummary>
-                      <AccordionDetails>
+                      <AccordionDetails id="meta-content">
                         <List>
                           {this.renderListItem(model.Meta)}
                         </List>
@@ -241,10 +280,10 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                   {model.Secrets ?
                   <Grid item xs={12}>
                       <Accordion>
-                        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-                          <Typography variant="overline">Secrets</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
+                      <AccordionSummary aria-controls="secrets-content" id="secrets-header">
+                        <Typography variant="overline">Secrets</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails id="secret-content">
                           <List>
                             {this.renderListItem(model.Secrets)}
                           </List>
