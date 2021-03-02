@@ -16,7 +16,7 @@ const App = () => {
   const [demoStripes, handleStripes] = useState(false);
 
   const updateModel = () => {
-    handleUpdateModel({ Configuration: {...model.Configuration, KeyFromUpdateModel: 777 }})
+    handleUpdateModel({ Configuration: {...model.Configuration }})
   }
   useEffect(() => {
     updateModel();
