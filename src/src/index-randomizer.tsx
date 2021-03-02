@@ -12,7 +12,7 @@ const App = () => {
       const matching = meta[data] === model.Configuration.RandomFieldName
       return (
         <React.Fragment key={data}>
-          <ListItem> 
+          <ListItem selected={matching}> 
             <ListItemText primary={label} />
             { matching ? <ListItemIcon><CheckCircle /></ListItemIcon> : null }
           </ListItem>
