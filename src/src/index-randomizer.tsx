@@ -70,7 +70,7 @@ const App = () => {
                   </Grid>
                 </Grid>
               </ListSubheader>}>
-                {model.Meta? renderListItem(model.Meta) : <NoOptionsMessage />}
+                { model.Meta ? renderListItem(model.Meta) : <NoOptionsMessage /> }
               </List>
             </Paper>
         </Grid>
