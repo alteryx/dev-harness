@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Grid, Divider, Typography, FormControlLabel, Switch, makeStyles } from '@ayx/eclipse-components';
+import { AppBar, Toolbar, Grid, Divider, Typography, FormLabel, FormControlLabel, Switch, Select, makeStyles } from '@ayx/eclipse-components';
 
 interface IAppHeaderProps {
   locale: string;
@@ -9,6 +9,28 @@ interface IAppHeaderProps {
   model?: any;
   configuration?: any;
 }
+const localeOptions = [{
+  value: 'en',
+  primary: 'en'
+}, {
+  value: 'fr',
+  primary: 'fr'
+}, {
+  value: 'de',
+  primary: 'de'
+}, {
+  value: 'es',
+  primary: 'es'
+}, {
+  value: 'pt',
+  primary: 'pt'
+}, {
+  value: 'ja',
+  primary: 'ja'
+}, {
+  value: 'zh',
+  primary: 'zh'
+}];
 
 const AppHeader = (props: IAppHeaderProps): JSX.Element => {
   const { darkMode, locale, handleSetLocale, handleSetDarkMode } = props;
@@ -28,15 +50,16 @@ const AppHeader = (props: IAppHeaderProps): JSX.Element => {
               <Typography variant="h4">Alteryx Designer Dev Harness</Typography>
             </Grid>
             <Grid item>
-              <Grid container spacing={4}>
+              <Grid container spacing={4} alignItems="center">
+                <Grid item><FormLabel>Locale</FormLabel></Grid>
                 <Grid item>
-                  {/* <Autocomplete
+                  <Select
                     disableClearable
-                    onChange={(e, value) => handleSetLocale(value)}
-                    options={['en', 'fr', 'de', 'es', 'pt', 'ja', 'zh']}
-                    renderInput={params => <TextField {...params} />}
+                    disableSearchable
+                    onChange={(e) => handleSetLocale(e.target.value)}
+                    options={localeOptions}
                     value={locale}
-                  /> */}
+                  />
                 </Grid>
                 <Grid item>
                   <FormControlLabel control={<Switch onChange={() => handleSetDarkMode(!darkMode)} />} label="Dark Mode" />

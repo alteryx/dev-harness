@@ -65,11 +65,11 @@ const inputOptions = [{
   value: 'none',
   primary: 'No Input'
 }, {
-  value: 'mtg',
-  primary: 'MTG Card Attributes'
-}, {
   value: 'address',
   primary: 'Address (US)'
+}, {
+  value: 'mtg',
+  primary: 'MTG Card Attributes'
 }];
 
 const exampleData = {
@@ -195,7 +195,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
           </Grid>
           
           <Grid item container className={classes.contentHeight}>
-
             <Grid item xs="auto" className={toolDrawerOpen ? classes.toolDrawerOpen : classes.toolDrawerExpanded}>
               <Box m={4}>
                 <Grid container alignItems="center">
@@ -225,7 +224,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                 <Grid container justify="center">
                   <Grid item xs="auto">
                     <Box m={4}>
-                      <Select onChange={this.handleInputChange} options={inputOptions} defaultValue="none" disableClearable />
+                      <Select onChange={this.handleInputChange} options={inputOptions} defaultValue="none" disableClearable disableSearchable />
                     </Box>
                   </Grid>
                 </Grid>

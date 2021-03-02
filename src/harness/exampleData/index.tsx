@@ -187,6 +187,7 @@ const createOption = primary => ({
     'Power',
     'Mana Cost',
     'Toughness',
+    'Loyalty',
     'Flavor Text'
   ].map(name => createKey(name));
 
