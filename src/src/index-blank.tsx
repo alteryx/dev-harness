@@ -8,7 +8,7 @@ const App = () => {
   const [model, handleUpdateModel] = React.useContext(UiSdkContext);
 
   const updateModel = () => {
-    handleUpdateModel({ Configuration: {...model.Configuration }})
+    handleUpdateModel({ Configuration: {...model.Configuration, KeyFromUpdateModel: 777 }})
   }
   useEffect(() => {
     updateModel();
@@ -35,7 +35,7 @@ const App = () => {
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}} >
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { KeyFromDefaultConfig: 444 }}} >
       <AyxAppWrapper> 
         <App />
       </AyxAppWrapper>

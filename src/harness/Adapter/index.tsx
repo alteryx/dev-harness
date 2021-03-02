@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 // import { TreeView, TreeItem } from '@ayx/ui-core-lab';
-import { Box, Grid, Paper, InputAdornment, AyxAppWrapper, Select, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@ayx/eclipse-components';
-import { InputTool, ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/eclipse-icons';
+import { Box, Grid, Paper, AyxAppWrapper, Select, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@ayx/eclipse-components';
+import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@ayx/eclipse-icons';
 
 import AppHeader from '../AppHeader';
-import { candies, addresses } from '../exampleData';
+import { mtg, address } from '../exampleData';
+import InputDataIcon from '../icons/InputDataIcon';
+import DefaultToolIcon from '../icons/DefaultToolIcon';
 
 interface IAdapterProps {
   classes: any;
@@ -63,13 +65,16 @@ const inputOptions = [{
   value: 'none',
   primary: 'No Input'
 }, {
-  value: 'candies',
-  primary: 'Candies'
+  value: 'mtg',
+  primary: 'MTG Card Attributes'
+}, {
+  value: 'address',
+  primary: 'Address (US)'
 }];
 
 const exampleData = {
-  candies: candies,
-  addresses: addresses,
+  mtg: mtg,
+  address: address
 }
 
 class Adapter extends Component<IAdapterProps, IAdapterState> {
@@ -77,7 +82,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     super(props);
     this.state = {
       darkMode: false,
-      model: { Configuration: {KeyFromAdapter1: 1234, KeyFromAdapter2: 3432, KeyFromAdapter3: [ {NestedKey1: 324, NestedKey2: [{NestedNestedKey1: 324, NestedNestedKey2: 324}]} ]}},
+      model: { Configuration: {} },
       locale: 'en',
       modelDrawerOpen: true,
       toolDrawerOpen: true
@@ -95,7 +100,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       const curModel = this.state.model;
       this.setState({
         model: { 
-          ...curModel, ...{Configuration: data.payload.Configuration}
+          ...curModel, ...{ Configuration: data.payload.Configuration }
          }
       });
     } else if (data.type === 'INIT') {
@@ -151,9 +156,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   handleInputChange = (e) => {
     const curModel = this.state.model;
     const meta = e.target.value !== 'none' ? {
-      Meta: {
-        [e.target.value]: exampleData[e.target.value]
-      }
+      Meta: exampleData[e.target.value]
     } : { Meta: undefined };
     this.setState({
       model: { 
@@ -163,15 +166,16 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   };
 
   renderListItem = (model) => {
-    return Object.keys(model).map(data => {
-      const label = model[data] && typeof model[data] !== 'object' ? `${data}: ${model[data]}` : data;
+    return Object.keys(model).map(key => {
+      const label = model[key] && Array.isArray(model) ? model[key] : `${key}: ${model[key]}`;
       return (
-        <>
-        <ListItem key={data}>
-          <ListItemText primary={label} />
-        </ListItem>
-        {Array.isArray(model[data]) ? model[data].map(item => <Collapse in={true} timeout="auto" unmountOnExit><Box pl={6}>{this.renderListItem(item)}</Box></Collapse>) : null}
-        </>
+        <React.Fragment key={key}>
+          <ListItem>
+            <ListItemText primary={label} />
+          </ListItem>
+          <Divider />
+          {Array.isArray(model[key]) ? model[key].map(item => <Collapse in={true} timeout="auto" unmountOnExit><Box pl={6}>{this.renderListItem(item)}</Box></Collapse>) : null}
+        </React.Fragment>
       );
     });
   };
@@ -226,9 +230,12 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                   </Grid>
                 </Grid>
               
-                <Grid className={classes.fullHeight} container justify="center" alignContent="center">
+                <Grid className={classes.fullHeight} container justify="center">
                   <Grid item>
-                    <img width="60" src="../../buildTemplates/exampleToolIcon.png" />
+                    <Box mt={30}>
+                      { model.Meta ? <InputDataIcon /> : null }
+                      <DefaultToolIcon />
+                    </Box>
                   </Grid>
                 </Grid>
               </Paper>
