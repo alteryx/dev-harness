@@ -10,8 +10,8 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    app: path.resolve(__dirname, 'src/harness/index.tsx'),
-    childApp: path.resolve(__dirname, 'src/src/index.tsx')
+    app: path.resolve(__dirname, 'harness/index.tsx'),
+    childApp: path.resolve(__dirname, 'src/index.tsx')
   },
   output: {
     path: path.resolve(__dirname, 'dist')
@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/harness/index.html',
+      template: './harness/index.html',
       filename: './index.html',
       chunks: ['app'],
       minify: {
@@ -36,7 +36,7 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      template: './src/src/index.html',
+      template: './src/index.html',
       filename: './childApp.html',
       chunks: ['childApp'],
       minify: {
