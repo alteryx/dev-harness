@@ -20,6 +20,7 @@ module.exports = {
     hot: true,
     port: 8080
   },
+  devtool: 'inline-source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
   },
