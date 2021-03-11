@@ -10,7 +10,7 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: {
-    app: path.resolve(__dirname, 'src/src/index.tsx')
+    app: path.resolve(__dirname, 'src/index.tsx')
   },
   output: {
     path: path.resolve(__dirname, 'dist')
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/src/index.html',
+      template: './src/index.html',
       filename: './index.html',
       chunks: ['app'],
       minify: {
