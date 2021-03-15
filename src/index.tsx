@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 const Explorer = props => {
   const { startAdornmentIcon, endAdornmentIcon, placeholder, label, id } = props;
   const [model, handleUpdateModel] = useContext(UiSdkContext);
-  console.log(model);
   const classes = useStyles();
 
   const inputFileRef = useRef(null);
