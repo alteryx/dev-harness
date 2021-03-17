@@ -78,7 +78,7 @@ const App = () => {
                     options={generateData(model.Meta?.fields[0][0].fields)}
                     onChange={handleFieldSelect}
                     value={model.Configuration.fieldSelect}
-                    placeholderText={"Select Column..."}
+                    placeholderText="Select Column..."
                   />
                   <Box marginTop={2}>
                     <InputLabel htmlFor="radio">Select the order:</InputLabel>

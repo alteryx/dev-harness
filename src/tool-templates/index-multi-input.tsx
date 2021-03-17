@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Grid, TextField, Box } from '@ayx/eclipse-components';
+import { AyxAppWrapper, Grid, TextField, Container, Box } from '@ayx/eclipse-components';
 import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
@@ -13,10 +13,10 @@ const App = () => {
   };
 
   return (
-    <Grid alignItems="flex-end" container>
-      <Grid item>
-        <Box p={2}>
-          <Box>
+    <Box marginTop={4}>
+      <Container>
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               name="leftField"
@@ -26,12 +26,8 @@ const App = () => {
               placeholder=""
               value={model.Configuration.leftField || ''}
             />
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item>
-        <Box p={2}>
-          <Box>
+          </Grid>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               name="rightField"
@@ -41,16 +37,16 @@ const App = () => {
               placeholder=""
               value={model.Configuration.rightField || ''}
             />
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   )
 }
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}}>
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { leftField: '', rightField: '' }}}>
       <AyxAppWrapper> 
         <App />
       </AyxAppWrapper>

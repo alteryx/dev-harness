@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Grid, TextField, Box } from '@ayx/eclipse-components';
+import { AyxAppWrapper, TextField, Box, Container } from '@ayx/eclipse-components';
 import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
@@ -13,8 +13,8 @@ const App = () => {
   };
 
   return (
-    <Box p={4}>
-      <Box>
+    <Box marginTop={3}>
+      <Container>
         <TextField
           fullWidth
           id="file-path-textfield"
@@ -23,14 +23,14 @@ const App = () => {
           placeholder="C:\Users\Public\python_output_sample_data.csv"
           value={model.Configuration.filePath || ''}
         />
-      </Box>
+      </Container>
     </Box>
   )
 }
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}}>
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { filePath: '' } }}>
       <AyxAppWrapper> 
         <App />
       </AyxAppWrapper>
