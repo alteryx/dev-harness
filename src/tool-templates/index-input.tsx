@@ -1,8 +1,8 @@
 import React, { useContext, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { AyxAppWrapper, Box, Grid, TextField, makeStyles, InputAdornment, IconButton, Button, Typography, Container } from '@ayx/eclipse-components';
+import { AyxAppWrapper, Box, Grid, TextField, InputAdornment, IconButton, Button, Typography, Container } from '@ayx/eclipse-components';
 import { File, X, Folder } from '@ayx/eclipse-icons';
-import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
+import { Context as UiSdkContext, DesignerApi, JsEvent } from '@ayx/react-comms';
 
 const Explorer = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
@@ -19,8 +19,11 @@ const Explorer = () => {
     handleUpdateModel(newModel);
   };
 
-  const onButtonClick = () => {
-    inputFileRef.current.click();
+  const onButtonClick = async () => {
+    const newModel = { ...model };
+    const val = await JsEvent(window.Alteryx, 'FileBrowse', {});
+    newModel.Configuration.fileNames = val;
+    handleUpdateModel(newModel);
   };
 
   const onHandleTextChange = event => {
