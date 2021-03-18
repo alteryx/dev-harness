@@ -4,13 +4,7 @@ import { AyxAppWrapper, Box, Grid, TextField, makeStyles, InputAdornment, IconBu
 import { File, X, Folder } from '@ayx/eclipse-icons';
 import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
-const useStyles = makeStyles((theme) => ({
-  buttonGutter: {
-    marginLeft: theme.spacing(2)
-  }
-}));
-
-const Explorer = props => {
+const Explorer = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
 
   const inputFileRef = useRef(null);
