@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, Box, Grid, Typography, makeStyles } from '@ayx/eclipse-components';
-import { FormattedMessage } from 'react-intl';
 import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const useStyles = makeStyles(() => ({
