@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, Box, Grid, Button, ListItem, Paper, List, ListItemText, ListSubheader, ListItemIcon, Typography, Divider, Collapse, useTheme } from '@ayx/eclipse-components';
 import { Shuffle, CheckCircle, AlertTriangle } from '@ayx/eclipse-icons';
-import { FormattedMessage } from 'react-intl';
 import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
