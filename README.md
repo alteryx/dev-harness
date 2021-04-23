@@ -4,7 +4,7 @@ The Dev Harness is a real time development environment for building custom tools
 
 ### Getting Started
 
-The Dev Harness is already equipped with all of the packages you'll need to build a custom tool. After cloning the repo, and `npm install` will get you setup.
+The Dev Harness is already equipped with all of the packages you'll need to build a custom tool. After cloning the repo, an `npm install` will get you setup.
 
 To run the Dev Harness, the standard `npm run start` command will launch the Dev Harness at localhost port 8080.
 
