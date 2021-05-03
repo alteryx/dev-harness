@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "alwaysStrict": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["types/*"],
+    },
+    "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true
+  },
+  "include": ["custom.d.ts"],
+  "exclude": ["node_modules", "src/**/*.test.*"]
+}
