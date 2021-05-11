@@ -99,7 +99,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       const curModel = this.state.model;
       this.setState({
         model: { 
-          ...curModel, ...{ Configuration: data.payload.Configuration }
+          ...curModel, Configuration: { ...data.payload.Configuration }
          }
       });
     } else if (data.type === 'INIT') {
