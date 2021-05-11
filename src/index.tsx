@@ -23,11 +23,8 @@ const App = () => {
   // The following code is specifically a dev harness functionality.
   // If you're developing a tool for Designer, you'll want to remove this
   // and check out our docs for guidance 
-  const updateModel = () => {
-    handleUpdateModel(model)
-  }
   useEffect(() => {
-    updateModel();
+    handleUpdateModel(model)
   }, []);
   // Dev Harness Specific Code ---------- End
 
