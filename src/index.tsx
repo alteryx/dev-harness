@@ -18,12 +18,18 @@ const App = () => {
   const classes = useStyles();
   const [model, handleUpdateModel] = useContext(UiSdkContext);
 
+
+  // Dev Harness Specific Code ---------- Start
+  // The following code is specifically a dev harness functionality.
+  // If you're developing a tool for Designer, you'll want to remove this
+  // and check out our docs for guidance 
   const updateModel = () => {
-    handleUpdateModel({ Configuration: {...model.Configuration }})
+    handleUpdateModel(model)
   }
   useEffect(() => {
     updateModel();
   }, []);
+  // Dev Harness Specific Code ---------- End
 
   return (
     <Box p={4}>
