@@ -218,7 +218,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                 <Grid container justify="center">
                   <Grid item xs="auto">
                     <Box m={4}>
-                      <TextField select noAutoWidth onChange={this.handleInputChange} defaultValue="none">
+                      <TextField select SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
                       {inputOptions.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.primary}
