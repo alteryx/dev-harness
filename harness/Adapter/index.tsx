@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, MenuItem, TextField, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@alteryx/ui';
+import { Box, Grid, Paper, AyxAppWrapper, FormControl, Typography, IconButton, Divider, MenuItem, TextField, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@alteryx/ui';
 import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@alteryx/icons';
 
 import AppHeader from '../AppHeader';
@@ -216,15 +216,17 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             <Grid item xs className={classes.fullHeight}>
               <Paper className={classes.fullHeight}>
                 <Grid container justify="center">
-                  <Grid item xs="auto">
+                  <Grid xs={5} item>
                     <Box m={4}>
-                      <TextField select SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
-                      {inputOptions.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.primary}
-                        </MenuItem>
-                      ))}
-                      </TextField>
+                      <FormControl fullWidth>
+                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
+                        {inputOptions.map(option => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.primary}
+                          </MenuItem>
+                        ))}
+                        </TextField>
+                      </FormControl>
                     </Box>
                   </Grid>
                 </Grid>
