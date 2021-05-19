@@ -3,7 +3,7 @@ import { Box, Grid, Paper, AyxAppWrapper, FormControl, Typography, IconButton, D
 import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@alteryx/icons';
 
 import AppHeader from '../AppHeader';
-import { mtg, address } from '../exampleData';
+import { mtg, address, candies, games } from '../exampleData';
 import InputDataIcon from '../icons/InputDataIcon';
 import DefaultToolIcon from '../icons/DefaultToolIcon';
 
@@ -69,11 +69,19 @@ const inputOptions = [{
 }, {
   value: 'mtg',
   primary: 'MTG Card Attributes'
+}, {
+  value: 'games',
+  primary: 'Video Games',
+}, {
+  value: 'candies',
+  primary: 'Candies'
 }];
 
 const exampleData = {
   mtg: mtg,
-  address: address
+  address: address,
+  games: games,
+  candies: candies
 }
 
 class Adapter extends Component<IAdapterProps, IAdapterState> {
