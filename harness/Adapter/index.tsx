@@ -3,7 +3,7 @@ import { Box, Grid, Paper, AyxAppWrapper, FormControl, Typography, IconButton, D
 import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@alteryx/icons';
 
 import AppHeader from '../AppHeader';
-import { mtg, address, candies, games } from '../exampleData';
+import { mtg, address, candies, games, metaDataFields } from '../exampleData';
 import InputDataIcon from '../icons/InputDataIcon';
 import DefaultToolIcon from '../icons/DefaultToolIcon';
 
@@ -61,8 +61,8 @@ const styles = (theme) => ({
 });
 
 const inputOptions = [{
-  value: 'none',
-  primary: 'No Input'
+  value: 'metaDataFields',
+  primary: 'Sample Designer Meta Data'
 }, {
   value: 'address',
   primary: 'Address (US)'
@@ -81,6 +81,7 @@ const exampleData = {
   mtg: mtg,
   address: address,
   games: games,
+  metaDataFields: metaDataFields,
   candies: candies
 }
 
@@ -89,13 +90,12 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     super(props);
     this.state = {
       darkMode: false,
-      model: { Configuration: {} },
+      model: { Configuration: {}, Meta: { fields: metaDataFields } },
       locale: 'en',
       modelDrawerOpen: true,
       toolDrawerOpen: true
     };
   }
-
   contentWindow: any;
 
   handleRef = ref => {
@@ -160,9 +160,9 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
 
   handleInputChange = (e) => {
     const curModel = this.state.model;
-    const meta = e.target.value !== 'none' ? {
-      Meta: exampleData[e.target.value]
-    } : { Meta: undefined };
+    const meta = e.target.value === 'metaDataFields' ? {
+      Meta: { fields: exampleData[e.target.value] }
+    } : { Meta: exampleData[e.target.value] };
     this.setState({
       model: { 
         ...curModel, ...meta
@@ -188,6 +188,10 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   render() {
     const { classes } = this.props;
     const { darkMode, model, locale, modelDrawerOpen, toolDrawerOpen } = this.state;
+
+    const metaFieldNames = model.Meta.fields ? model.Meta.fields[0][0].fields.map(field => { 
+      return field.name
+    }) : model.Meta;
     return (
       <AyxAppWrapper locale={locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
@@ -227,7 +231,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                   <Grid xs={5} item>
                     <Box m={4}>
                       <FormControl fullWidth>
-                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
+                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="metaDataFields">
                         {inputOptions.map(option => (
                           <MenuItem key={option.value} value={option.value}>
                             {option.primary}
@@ -285,7 +289,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                         </AccordionSummary>
                         <AccordionDetails id="meta-content">
                           <List>
-                            {this.renderListItem(model.Meta)}
+                            {this.renderListItem(metaFieldNames)}
                           </List>
                         </AccordionDetails>
                       </Accordion>

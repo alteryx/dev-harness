@@ -1,5 +1,30 @@
 const createKey = (primary) => { return primary; };
 
+const metaDataFields = [
+  [
+    {
+      connectionName:"",
+      fieldsByName:
+      {
+        games: {
+          name:"Games","type":"V_String","size":"21","source":"Formula: [_CurrentField_]"
+          },
+          candies: {
+            "name":"Candies","type":"V_String","size":"27","source":"Formula: [_CurrentField_]"
+          },
+          field3: {
+            "name":"Address","type":"String","size":"16","source":"Formula: [_CurrentField_]"
+          }
+        },
+        fields:[
+          {"name":"Games","type":"V_String","size":"21","source":"Formula: [_CurrentField_]"},
+          {"name":"Candies","type":"V_String","size":"27","source":"Formula: [_CurrentField_]"},
+          {"name":"Address","type":"String","size":"16","source":"Formula: [_CurrentField_]"}
+        ]
+      }
+    ]
+  ]
+
 const games = [
   'Pong',
   'Tank',
@@ -183,5 +208,5 @@ const mtg = [
   'Flavor Text'
 ].map(name => createKey(name));
 
-export { games, candies, planeswalkers, mtg, address };
+export { games, metaDataFields, candies, planeswalkers, mtg, address };
   
