@@ -61,6 +61,9 @@ const styles = (theme) => ({
 });
 
 const inputOptions = [{
+  value: 'none',
+  primary: 'No Value'
+},{
   value: 'address',
   primary: 'Address (US)'
 }, {
@@ -70,7 +73,7 @@ const inputOptions = [{
 
 const exampleData = {
   mtg: mtg,
-  address: address,
+  address: address
 }
 
 class Adapter extends Component<IAdapterProps, IAdapterState> {
@@ -78,7 +81,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     super(props);
     this.state = {
       darkMode: false,
-      model: { Configuration: {}, Meta: { fields: address } },
+      model: { Configuration: {} },
       locale: 'en',
       modelDrawerOpen: true,
       toolDrawerOpen: true
@@ -148,9 +151,9 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
 
   handleInputChange = (e) => {
     const curModel = this.state.model;
-    const meta = {
+    const meta = e.target.value !== 'none' ? {
       Meta: { fields: exampleData[e.target.value] }
-    }
+    } : { Meta: undefined };
     this.setState({
       model: { 
         ...curModel, ...meta
@@ -177,7 +180,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     const { classes } = this.props;
     const { darkMode, model, locale, modelDrawerOpen, toolDrawerOpen } = this.state;
 
-    const metaFieldNames = model.Meta.fields ? model.Meta.fields[0][0].fields.map(field => { 
+    const metaFieldNames = model.Meta ? model.Meta.fields[0][0].fields.map(field => { 
       return field.name
     }) : [];
 
@@ -220,7 +223,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                   <Grid xs={5} item>
                     <Box m={4}>
                       <FormControl fullWidth>
-                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="address">
+                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
                         {inputOptions.map(option => (
                           <MenuItem key={option.value} value={option.value}>
                             {option.primary}
