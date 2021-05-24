@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Grid, Paper, AyxAppWrapper, Typography, IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@alteryx/ui';
+import { Box, Grid, Paper, AyxAppWrapper, FormControl, Typography, IconButton, Divider, MenuItem, TextField, Accordion, AccordionSummary, AccordionDetails, withStyles, List, ListItem, ListItemText, Collapse } from '@alteryx/ui';
 import { ArrowRight, ArrowLeft, MinimizeHorizontal, MaximizeHorizontal } from '@alteryx/icons';
 
 import AppHeader from '../AppHeader';
@@ -63,7 +63,7 @@ const styles = (theme) => ({
 const inputOptions = [{
   value: 'none',
   primary: 'No Input'
-}, {
+},{
   value: 'address',
   primary: 'Address (US)'
 }, {
@@ -87,7 +87,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       toolDrawerOpen: true
     };
   }
-
   contentWindow: any;
 
   handleRef = ref => {
@@ -153,7 +152,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   handleInputChange = (e) => {
     const curModel = this.state.model;
     const meta = e.target.value !== 'none' ? {
-      Meta: exampleData[e.target.value]
+      Meta: { fields: exampleData[e.target.value] }
     } : { Meta: undefined };
     this.setState({
       model: { 
@@ -180,6 +179,11 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
   render() {
     const { classes } = this.props;
     const { darkMode, model, locale, modelDrawerOpen, toolDrawerOpen } = this.state;
+
+    const metaFieldNames = model.Meta ? model.Meta.fields[0][0].fields.map(field => { 
+      return field.name
+    }) : [];
+
     return (
       <AyxAppWrapper locale={locale} paletteType={darkMode ? 'dark' : 'light'}>
         <Grid className={classes.fullHeight} container direction="column" wrap="nowrap">
@@ -189,8 +193,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
               handleSetDarkMode={this.setDarkMode}
               handleSetLocale={this.setLocale}
               locale={locale}/>
-          </Grid>
-          
+          </Grid>          
           <Grid item container className={classes.contentHeight}>
             <Grid item xs="auto" className={toolDrawerOpen ? classes.toolDrawerOpen : classes.toolDrawerExpanded}>
               <Box m={4}>
@@ -213,18 +216,24 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                 title="child-app"
               />
             </Grid>
-
             <Divider orientation="vertical" />
             <Grid item xs className={classes.fullHeight}>
               <Paper className={classes.fullHeight}>
-              
                 <Grid container justify="center">
-                  <Grid item xs="auto">
+                  <Grid xs={5} item>
                     <Box m={4}>
+                      <FormControl fullWidth>
+                        <TextField select label="Meta" SelectProps={{ autoWidth: false }} onChange={this.handleInputChange} defaultValue="none">
+                        {inputOptions.map(option => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.primary}
+                          </MenuItem>
+                        ))}
+                        </TextField>
+                      </FormControl>
                     </Box>
                   </Grid>
                 </Grid>
-              
                 <Grid className={classes.fullHeight} container justify="center">
                   <Grid item>
                     <Box mt={30}>
@@ -236,7 +245,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
               </Paper>
             </Grid>
             <Divider orientation="vertical" /> 
-
             <Grid item xs="auto" className={modelDrawerOpen ? classes.modelDrawerOpen : classes.modelDrawerClosed}>
               <Box m={4}>
                 <Grid container alignItems="center">
@@ -251,7 +259,6 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                 </Grid>
               </Box>
               <Divider />
-
               { modelDrawerOpen ? 
                 <>
                   <Grid item xs={12}>
@@ -267,36 +274,35 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                     </Accordion>
                   </Grid>
                   {model.Meta ?
-                  <Grid item xs={12}>
-                    <Accordion>
-                      <AccordionSummary aria-controls="meta-content" id="meta-header">
-                        <Typography variant="overline">Meta</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails id="meta-content">
-                        <List>
-                          {this.renderListItem(model.Meta)}
-                        </List>
-                      </AccordionDetails>
-                    </Accordion>
-                  </Grid>: null}
-                  {model.Secrets ?
-                  <Grid item xs={12}>
+                    <Grid item xs={12}>
                       <Accordion>
-                      <AccordionSummary aria-controls="secrets-content" id="secrets-header">
-                        <Typography variant="overline">Secrets</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails id="secret-content">
+                        <AccordionSummary aria-controls="meta-content" id="meta-header">
+                          <Typography variant="overline">Meta</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails id="meta-content">
                           <List>
-                            {this.renderListItem(model.Secrets)}
+                            {this.renderListItem(metaFieldNames)}
                           </List>
                         </AccordionDetails>
                       </Accordion>
-                  </Grid> : null
+                    </Grid>: null}
+                  {model.Secrets ?
+                    <Grid item xs={12}>
+                        <Accordion>
+                        <AccordionSummary aria-controls="secrets-content" id="secrets-header">
+                          <Typography variant="overline">Secrets</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails id="secret-content">
+                            <List>
+                              {this.renderListItem(model.Secrets)}
+                            </List>
+                          </AccordionDetails>
+                        </Accordion>
+                    </Grid> : null
                   }
                 </>
               : null }
             </Grid>
-
           </Grid>
         </Grid>
       </AyxAppWrapper>
