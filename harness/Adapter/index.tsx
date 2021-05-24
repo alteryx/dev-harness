@@ -62,7 +62,7 @@ const styles = (theme) => ({
 
 const inputOptions = [{
   value: 'none',
-  primary: 'No Value'
+  primary: 'No Input'
 },{
   value: 'address',
   primary: 'Address (US)'
