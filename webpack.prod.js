@@ -18,6 +18,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
   },
+  optimization: {
+    runtimeChunk: 'single'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
