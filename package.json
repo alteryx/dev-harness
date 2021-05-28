@@ -14,8 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "@alteryx/icons": "^1.0.0",
-    "@alteryx/react-comms": "^1.0.0",
-    "@alteryx/ui": "^1.0.0",
+    "@alteryx/react-comms": "^1.0.1",
+    "@alteryx/ui": "^1.1.0",
     "@babel/cli": "7.11.6",
     "@babel/core": "7.11.6",
     "@babel/preset-env": "7.11.5",
