@@ -11,7 +11,7 @@ module.exports = {
   mode: 'development',
   entry: {
     app: path.resolve(__dirname, 'harness/index.tsx'),
-    childApp: path.resolve(__dirname, 'src/index.tsx')
+    childApp: path.resolve(__dirname, 'src/index.jsx')
   },
   output: {
     path: path.resolve(__dirname, 'dist')
