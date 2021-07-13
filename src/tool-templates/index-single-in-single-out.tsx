@@ -1,9 +1,9 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { 
   AyxAppWrapper,
   Box,
-  Select,
+  Autocomplete,
   Grid,
   Checkbox,
   FormControl,
@@ -73,12 +73,21 @@ const App = () => {
               model.Configuration.doSort ?
                 <Box p={2}> 
                   <InputLabel htmlFor="select">Select a field to order by:</InputLabel>
-                  <Select 
-                    id="select"
+                  <Autocomplete
+                    id="Autocomplete"
                     options={generateData(model.Meta?.fields[0][0].fields)}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        id="ac-meta"
+                        label="Meta Data"
+                        margin="normal"
+                        placeholder="Select Column..."
+                      />
+                    )}
                     onChange={handleFieldSelect}
                     value={model.Configuration.fieldSelect}
-                    placeholderText="Select Column..."
                   />
                   <Box marginTop={2}>
                     <InputLabel htmlFor="radio">Select the order:</InputLabel>
