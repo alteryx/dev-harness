@@ -83,11 +83,11 @@ const App = () => {
                         id="ac-meta"
                         label="Meta Data"
                         margin="normal"
+                        placeholder="Select Column..."
                       />
                     )}
                     onChange={handleFieldSelect}
                     value={model.Configuration.fieldSelect}
-                    placeholder="Select Column..."
                   />
                   <Box marginTop={2}>
                     <InputLabel htmlFor="radio">Select the order:</InputLabel>
