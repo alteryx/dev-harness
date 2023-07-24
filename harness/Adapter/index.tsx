@@ -86,14 +86,21 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
       modelDrawerOpen: true,
       toolDrawerOpen: true
     };
+
+    this.handleRef = this.handleRef.bind(this);
+    this.toggleModelDrawer = this.toggleModelDrawer.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.receiveMessageEnvelope = this.receiveMessageEnvelope.bind(this);
+    this.sendUpdates = this.sendUpdates.bind(this);
+    this.setDarkMode = this.setDarkMode.bind(this);
   }
   contentWindow: any;
 
-  handleRef = ref => {
+  handleRef(ref) {
     this.contentWindow = ref ? ref.contentWindow : null;
-  };
+  }
 
-  receiveMessageEnvelope = ({ data }) => {
+  receiveMessageEnvelope({ data }) {
     if (actionTypes.find(t => t === data.type)) {
       const curModel = this.state.model;
       this.setState({
@@ -107,7 +114,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     }
   };
 
-  sendUpdates = () => {
+  sendUpdates () {
     const { model, darkMode, locale } = this.state;
     this.contentWindow.postMessage({ type: 'MODEL_UPDATED', payload: { ...model } }, '*');
     this.contentWindow.postMessage({ type: 'AYX_APP_CONTEXT_UPDATED', payload: { darkMode, locale } }, '*');
@@ -127,29 +134,29 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     window.removeEventListener('message', this.receiveMessageEnvelope);
   }
 
-  setDarkMode = darkMode => {
+  setDarkMode(darkMode) {
     this.setState({
       darkMode
     });
   };
 
-  setLocale = locale => {
+  setLocale (locale) {
     this.setState({
       locale
     });
   };
 
-  toggleToolDrawer = () => {
+  toggleToolDrawer () {
     const { toolDrawerOpen } = this.state;
     this.setState({ toolDrawerOpen: !toolDrawerOpen });
   };
 
-  toggleModelDrawer = () => {
+  toggleModelDrawer () {
     const { modelDrawerOpen } = this.state;
     this.setState({ modelDrawerOpen: !modelDrawerOpen });
   };
 
-  handleInputChange = (e) => {
+  handleInputChange (e) {
     const curModel = this.state.model;
     const meta = e.target.value !== 'none' ? {
       Meta: { fields: exampleData[e.target.value] }
@@ -161,7 +168,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     });
   };
 
-  renderListItem = (model) => {
+  renderListItem (model) {
     return Object.keys(model).map(key => {
       const label = model[key] && Array.isArray(model) ? model[key] : `${key}: ${model[key]}`;
       return (
@@ -219,7 +226,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
             <Divider orientation="vertical" />
             <Grid item xs className={classes.fullHeight}>
               <Paper className={classes.fullHeight}>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Grid xs={5} item>
                     <Box m={4}>
                       <FormControl fullWidth>
@@ -234,7 +241,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
                     </Box>
                   </Grid>
                 </Grid>
-                <Grid className={classes.fullHeight} container justify="center">
+                <Grid className={classes.fullHeight} container justifyContent="center">
                   <Grid item>
                     <Box mt={30}>
                       { model.Meta ? <InputDataIcon /> : null }
