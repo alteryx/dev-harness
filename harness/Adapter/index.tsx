@@ -91,7 +91,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
     this.toggleModelDrawer = this.toggleModelDrawer.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.receiveMessageEnvelope = this.receiveMessageEnvelope.bind(this);
-    this.sendUpdates = this.sendUpdates.bind(this)
+    this.sendUpdates = this.sendUpdates.bind(this);
     this.setDarkMode = this.setDarkMode.bind(this);
   }
   contentWindow: any;
