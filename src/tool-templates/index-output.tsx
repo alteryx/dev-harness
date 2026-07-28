@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, TextField, Box, Container } from '@alteryx/ui';
-import { Context as UiSdkContext, DesignerApi } from '@alteryx/react-comms';
+import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
@@ -31,7 +31,7 @@ const App = () => {
 const Tool = () => {
   return (
     <DesignerApi messages={{}} defaultConfig={{ Configuration: { filePath: '' } }}>
-      <AyxAppWrapper> 
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>

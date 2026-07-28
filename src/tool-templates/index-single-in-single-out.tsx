@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { 
+import {
   AyxAppWrapper,
   Box,
   Autocomplete,
@@ -13,7 +13,7 @@ import {
   RadioGroup,
   Radio
 } from '@alteryx/ui';
-import { Context as UiSdkContext, DesignerApi } from '@alteryx/react-comms';
+import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 const App = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);
@@ -71,7 +71,7 @@ const App = () => {
             </Box>
             {
               model.Configuration.doSort ?
-                <Box p={2}> 
+                <Box p={2}>
                   <InputLabel htmlFor="select">Select a field to order by:</InputLabel>
                   <Autocomplete
                     id="Autocomplete"
@@ -97,7 +97,7 @@ const App = () => {
                     </RadioGroup>
                   </Box>
                 </Box>
-              : null
+                : null
             }
           </FormControl>
         </Grid>
@@ -108,8 +108,8 @@ const App = () => {
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}} defaultConfig={{ Configuration: { numRecords: 0, doSort: false, orderType: 'desc', fieldSelect: '' }, Meta: { fields: [[{ fields: []}]] } }}>
-      <AyxAppWrapper> 
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { numRecords: 0, doSort: false, orderType: 'desc', fieldSelect: '' }, Meta: { fields: [[{ fields: [] }]] } }}>
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>

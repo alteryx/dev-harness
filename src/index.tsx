@@ -1,8 +1,8 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, Box, Grid, Typography, makeStyles, Theme } from '@alteryx/ui';
 import { Alteryx } from '@alteryx/icons';
-import { Context as UiSdkContext, DesignerApi } from '@alteryx/react-comms';
+import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
 
 
 
@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <Box p={4}>
-     <Grid container spacing={4} direction="column" alignItems="center">
+      <Grid container spacing={4} direction="column" alignItems="center">
         <Grid item>
           <Alteryx className={classes.alteryx} />
         </Grid>
@@ -47,7 +47,7 @@ const App = () => {
 const Tool = () => {
   return (
     <DesignerApi messages={{}}>
-      <AyxAppWrapper> 
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>
