@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, Box, Grid, Typography, makeStyles, Theme } from '@alteryx/ui';
 import { Alteryx } from '@alteryx/icons';
-import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
+import { Context as UiSdkContext, DesignerApi } from '@alteryx/react-comms';
 
 
 

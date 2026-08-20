@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { AyxAppWrapper, Box, Grid, TextField, InputAdornment, IconButton, Button, Typography, Container } from '@alteryx/ui';
 import { File, X, Folder } from '@alteryx/icons';
-import { Context as UiSdkContext, DesignerApi, JsEvent } from '@ayx/react-comms';
+import { Context as UiSdkContext, DesignerApi, JsEvent } from '@alteryx/react-comms';
 
 const Explorer = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);

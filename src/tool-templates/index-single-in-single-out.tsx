@@ -13,7 +13,7 @@ import {
   RadioGroup,
   Radio
 } from '@alteryx/ui';
-import { Context as UiSdkContext, DesignerApi } from '@ayx/react-comms';
+import { Context as UiSdkContext, DesignerApi } from '@alteryx/react-comms';
 
 const App = () => {
   const [model, handleUpdateModel] = useContext(UiSdkContext);

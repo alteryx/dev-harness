@@ -2,6 +2,10 @@
 
 The Dev Harness is a real time development environment for building custom tools that will be used within the Alteryx platform. It allows you to rapidly prototype and prove out UIs for your custom tools utilizing the UI-SDK packages: [react-comms](https://alteryx.github.io/react-comms/) and [alteryx-ui](https://alteryx.github.io/alteryx-ui/).
 
+### Prerequisites
+
+Node.js 22 LTS is recommended. Node.js 18 or newer is required.
+
 ### Getting Started
 
 The Dev Harness is already equipped with all of the packages you'll need to build a custom tool. After cloning the repo, an `npm install` will get you setup.
