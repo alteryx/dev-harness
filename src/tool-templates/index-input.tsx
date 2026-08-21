@@ -13,8 +13,8 @@ const Explorer = () => {
     const { files } = inputFileRef.current;
     const newModel = { ...model };
     const mappedFileNames = Object.values(files)
-    .map((file: any) => file.name)
-    .join(', ')
+      .map((file: any) => file.name)
+      .join(', ')
     newModel.Configuration.fileNames = mappedFileNames
     handleUpdateModel(newModel);
   };
@@ -79,9 +79,9 @@ const App = () => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-              <Typography variant="h2">
-                File Browse
-              </Typography>
+            <Typography variant="h2">
+              File Browse
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Explorer />
@@ -94,8 +94,8 @@ const App = () => {
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}} defaultConfig={{ Configuration: { fileNames: '' }}}>
-      <AyxAppWrapper> 
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { fileNames: '' } }}>
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>

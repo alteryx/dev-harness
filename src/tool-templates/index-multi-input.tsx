@@ -46,8 +46,8 @@ const App = () => {
 
 const Tool = () => {
   return (
-    <DesignerApi messages={{}} defaultConfig={{ Configuration: { leftField: '', rightField: '' }}}>
-      <AyxAppWrapper> 
+    <DesignerApi messages={{}} defaultConfig={{ Configuration: { leftField: '', rightField: '' } }}>
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>

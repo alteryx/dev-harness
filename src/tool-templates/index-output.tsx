@@ -31,7 +31,7 @@ const App = () => {
 const Tool = () => {
   return (
     <DesignerApi messages={{}} defaultConfig={{ Configuration: { filePath: '' } }}>
-      <AyxAppWrapper> 
+      <AyxAppWrapper>
         <App />
       </AyxAppWrapper>
     </DesignerApi>
