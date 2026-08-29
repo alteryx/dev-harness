@@ -211,7 +211,7 @@ class Adapter extends Component<IAdapterProps, IAdapterState> {
               <Divider />
               <iframe
                 ref={this.handleRef}
-                src="http://localhost:8080/childApp.html"
+                src="/childApp.html"
                 style={{ border: 0, height: '100%', width: '100%'}}
                 title="child-app"
               />
